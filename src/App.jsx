@@ -20,18 +20,4 @@ function App() {
 
 export default App;
 
-// import React from "react";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import BlogDetail from "./BlogDetail";
 
-// function App() {
-//   return (
-//     <Router>
-//       <Routes>
-//         <Route path="/blog/:id" element={<BlogDetail />} />
-//       </Routes>
-//     </Router>
-//   );
-// }
-
-// export default App;

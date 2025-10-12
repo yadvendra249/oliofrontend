@@ -1,18 +1,22 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Import Link for navigation
-import "./index.css"; // Use the existing CSS file
+import { useNavigate, Link } from "react-router-dom"; 
+import "./index.css"; 
+import { useDispatch } from "react-redux";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Email:", email);
-		console.log("Password:", password);
+        dispatch(loginUser({ email, password })).unwrap()
+            .then((res) => {
+                localStorage.setItem("token", res);   
         navigate("/home");
-    };
+    });
+}
 
     return (
         <div className="login-container">

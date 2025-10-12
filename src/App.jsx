@@ -16,11 +16,13 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route element={<ProtectedLayout />}>
-        <Route path="/blog/:id" element={<RoleRoute element={BlogDetail} allowedRoles={["user", "admin"]} />    } />
-        <Route path="/home" element={ <RoleRoute element={Home} allowedRoles={["user", "admin"]} />} />
-      </Route>
-      <Route path="*" element={<Login />} />
+      {/* <Route element={<ProtectedLayout />}> */}
+      {/* <Route path="/blog/:id" element={<RoleRoute element={BlogDetail} allowedRoles={["user", "admin"]} />} /> */}
+      {/* <Route path="/home" element={<RoleRoute element={Home} allowedRoles={["user", "admin"]} />} /> */}
+      {/* </Route> */}
+      {/* <Route path="*" element={<Login />} /> */}
+      <Route path="/blog/:id" element={<BlogDetail />} />
+      <Route path="/home" element={< Home />} />
     </Routes>
   );
 }

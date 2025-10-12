@@ -9,6 +9,7 @@ import Blog from './components/blog';
 import FAQ from './components/faq';
 import Contact from './components/contact';
 import Footer from './components/footer';
+import BookingTable from './components/BookingTable';
 
 
 function Home() {
@@ -22,6 +23,10 @@ function Home() {
       <Blog />
       <FAQ />
       <Contact />
+      <div style={{ background: "#fff", padding: "30px 15px", marginTop: "80px", borderRadius: "12px", boxShadow: "0 2px 12px rgba(0,0,0,0.07)" }}>
+        <h2 style={{ fontWeight: "bold", marginBottom: "30px", textAlign: "center" }}>My Booking</h2>
+        <BookingTable />
+      </div>
       <Footer />
     </div>
   );

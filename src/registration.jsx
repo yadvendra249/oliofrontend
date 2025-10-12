@@ -45,6 +45,17 @@ const Register = () => {
                         />
                     </div>
                     <div className="form-group">
+                        <label>Username</label>
+                        <input
+                            type="text"
+                            className="form-input"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
                         <label>Email</label>
                         <input
                             type="email"

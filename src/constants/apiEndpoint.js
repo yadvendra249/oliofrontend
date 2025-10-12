@@ -14,7 +14,7 @@ const apiEndpoint = {
   adminCarBookingApprove: (id) => `/api/v1/admin/bookings/cars/${id}/approve`,
   adminCarBookingCancel: (id) => `/api/v1/admin/bookings/cars/${id}/cancel`,
 
- 
+
   adminDriverBookings: "/api/v1/admin/bookings/drivers",
   adminDriverBookingApprove: (id) => `/api/v1/admin/bookings/drivers/${id}/approve`,
   adminDriverBookingCancel: (id) => `/api/v1/admin/bookings/drivers/${id}/cancel`,

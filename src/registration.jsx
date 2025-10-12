@@ -1,33 +1,31 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Import Link for navigation
-import "./index.css"; // Use the existing CSS file
+import { useNavigate, Link } from "react-router-dom";
+import "./index.css";
 import { useDispatch } from "react-redux";
 import { RegisterUser } from "./redux/features/users/userThunk";
 
 
 
 const Register = () => {
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState({});
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
     const handleSubmit = (e) => {
-
         e.preventDefault();
-        // Handle registration logic here (e.g., API call)
-
-        console.log("User registered:", { username, email, password });
-
-        dispatch(RegisterUser({ username, email, password })).unwrap()
+        if(username.firstName && username.lastName && username.username && username.email && username.password && username.role ){
+        dispatch(RegisterUser(username)).unwrap()
             .then((res) => {
                 localStorage.setItem("token", res);
-                // navigate("/home");
                 navigate("/login");
             });
-        // Redirect to login after registration
-    };
+    }else{
+        console.log("Please fill all fields")
+    }
+    }
+    const handleChange = (e) => {
+        setUsername(prev => ({ ...prev, [e.target.name]: e.target.value }))
+    }
 
     return (
         <div className="login-container">
@@ -35,12 +33,24 @@ const Register = () => {
                 <h2 className="login-title">Register</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label>Username</label>
+                        <label>First Name</label>
                         <input
                             type="text"
                             className="form-input"
                             value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            name="firstName"
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Last Name</label>
+                        <input
+                            type="text"
+                            className="form-input"
+                            value={username}
+                            name="lastName"
+                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -50,7 +60,8 @@ const Register = () => {
                             type="text"
                             className="form-input"
                             value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            name="username"
+                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -61,7 +72,8 @@ const Register = () => {
                             type="email"
                             className="form-input"
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            name="email"
+                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -71,9 +83,24 @@ const Register = () => {
                             type="password"
                             className="form-input"
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            name="password"
+                            onChange={handleChange}
                             required
                         />
+                    </div>
+                    <div className="form-group">
+                        <label>Role</label>
+                        <select
+                            className="form-input"
+                            value={role}
+                            name="role"
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Select Role</option>
+                            <option value="ADMIN">Admin</option>
+                            <option value="USER">User</option>
+                        </select>
                     </div>
                     <button type="submit" className="login-button">
                         Register

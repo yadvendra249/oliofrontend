@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { bookingCab } from "../redux/features/users/userThunk";
+import { bookingCab, bookingDriver } from "../redux/features/users/userThunk";
+
 
 const Booking = () => {
   // Tab states
@@ -9,7 +10,7 @@ const Booking = () => {
   const [subTabSchedule, setSubTabSchedule] = useState("cab");
   const dispatch = useDispatch();
 
-  const initialFormState =    {
+  const initialFormState = {
     // Immediate Cab
     immediateCabType: "",
     name: "",
@@ -74,22 +75,22 @@ const Booking = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = Object?.fromEntries(
-  Object?.entries(formData)?.filter(([_, v]) => v != null && v !== "")
-)
-    if(subTabImmediate === "cab"){
+      Object?.entries(formData)?.filter(([_, v]) => v != null && v !== "")
+    )
+    if (subTabImmediate === "cab") {
       dispatch(bookingCab(payload)).unwrap()
-      .then((res) => {
+        .then((res) => {
           if (res) {
-            setFormData(initialFormState) 
+            setFormData(initialFormState)
           }
-      });
-    }else{
+        });
+    } else {
       dispatch(bookingDriver(payload)).unwrap()
-      .then((res) => {
+        .then((res) => {
           if (res) {
-            setFormData(initialFormState) 
+            setFormData(initialFormState)
           }
-      });
+        });
     }
   };
 

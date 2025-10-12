@@ -37,7 +37,7 @@ const Register = () => {
                         <input
                             type="text"
                             className="form-input"
-                            value={username}
+                            value={username.firstName}
                             name="firstName"
                             onChange={handleChange}
                             required
@@ -48,7 +48,7 @@ const Register = () => {
                         <input
                             type="text"
                             className="form-input"
-                            value={username}
+                            value={username.lastName}
                             name="lastName"
                             onChange={handleChange}
                             required
@@ -59,7 +59,7 @@ const Register = () => {
                         <input
                             type="text"
                             className="form-input"
-                            value={username}
+                            value={username.username}
                             name="username"
                             onChange={handleChange}
                             required
@@ -71,7 +71,7 @@ const Register = () => {
                         <input
                             type="email"
                             className="form-input"
-                            value={email}
+                            value={username.email}
                             name="email"
                             onChange={handleChange}
                             required
@@ -82,7 +82,7 @@ const Register = () => {
                         <input
                             type="password"
                             className="form-input"
-                            value={password}
+                            value={username.password}
                             name="password"
                             onChange={handleChange}
                             required
@@ -92,7 +92,7 @@ const Register = () => {
                         <label>Role</label>
                         <select
                             className="form-input"
-                            value={role}
+                            value={username.role}
                             name="role"
                             onChange={handleChange}
                             required

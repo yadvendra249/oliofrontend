@@ -6,7 +6,6 @@ import './App.css';
 import Login from './login';
 import Register from './registration';
 import ProtectedLayout from './utils/ProtectedLayout';
-import RoleRoute from './utils/RoleRoute';
 
 
 

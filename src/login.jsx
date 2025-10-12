@@ -12,11 +12,15 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        localStorage.setItem("token",JSON.stringify({accessToken:"dummy"}))
-        dispatch(loginUser({ email, password })).unwrap()
+        let payload = {
+            username: email,
+            password: password
+        }
+        dispatch(loginUser(payload)).unwrap()
             .then((res) => {
-                if(res){
-                navigate("/home");
+                if (res) {
+                    setToken(JSON.stringify(res))
+                    navigate("/home");
                 }
             });
     }
@@ -27,9 +31,9 @@ const Login = () => {
                 <h2 className="login-title">Login</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label>Email</label>
+                        <label>User Name</label>
                         <input
-                            type="email"
+
                             className="form-input"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}

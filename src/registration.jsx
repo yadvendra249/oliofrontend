@@ -1,18 +1,32 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom"; // Import Link for navigation
 import "./index.css"; // Use the existing CSS file
+import { useDispatch } from "react-redux";
+import { RegisterUser } from "./redux/features/users/userThunk";
+
+
 
 const Register = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const dispatch = useDispatch()
 
     const handleSubmit = (e) => {
+
         e.preventDefault();
         // Handle registration logic here (e.g., API call)
+
         console.log("User registered:", { username, email, password });
-        navigate("/login"); // Redirect to login after registration
+
+        dispatch(RegisterUser({ username, email, password })).unwrap()
+            .then((res) => {
+                localStorage.setItem("token", res);
+                // navigate("/home");
+                navigate("/login");
+            });
+        // Redirect to login after registration
     };
 
     return (

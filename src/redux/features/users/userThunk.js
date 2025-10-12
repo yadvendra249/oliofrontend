@@ -16,3 +16,16 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
+
+
+export const RegisterUser = createAsyncThunk(
+  "user/RegisterUser",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const res = await api.post(apiEnpoint.register, userData);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Registration failed");
+    }
+  }
+);

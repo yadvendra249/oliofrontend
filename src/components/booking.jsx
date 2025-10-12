@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { bookingCab } from "../redux/features/users/userThunk";
 
 const Booking = () => {
   // Tab states
   const [mainTab, setMainTab] = useState("immediate");
   const [subTabImmediate, setSubTabImmediate] = useState("cab");
   const [subTabSchedule, setSubTabSchedule] = useState("cab");
+  const dispatch = useDispatch();
 
-  // Form states
-  const [formData, setFormData] = useState({
+  const initialFormState =    {
     // Immediate Cab
     immediateCabType: "",
     name: "",
@@ -45,8 +47,10 @@ const Booking = () => {
     scheduleDriverOtp: "",
     scheduleDriverPickupLocation: "",
     scheduleDriverDropLocation: "",
-  });
+  }
 
+  // Form states
+  const [formData, setFormData] = useState(initialFormState);
   const [showTerminalField, setShowTerminalField] = useState(false);
 
   // Handle input changes
@@ -67,11 +71,23 @@ const Booking = () => {
     }
   };
 
-  // Handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Form Data Submitted! (Console main dekhein)");
-    console.log("Form Data Submitted:", formData);
+    if(subTabImmediate === "cab"){
+      dispatch(bookingCab(formData)).unwrap()
+      .then((res) => {
+          if (res) {
+            setFormData(initialFormState) 
+          }
+      });
+    }else{
+      dispatch(bookingDriver(formData)).unwrap()
+      .then((res) => {
+          if (res) {
+            setFormData(initialFormState) 
+          }
+      });
+    }
   };
 
   return (

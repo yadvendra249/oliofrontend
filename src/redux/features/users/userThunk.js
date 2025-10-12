@@ -29,3 +29,28 @@ export const RegisterUser = createAsyncThunk(
     }
   }
 );
+
+export const bookingDriver = createAsyncThunk(
+  "user/RegisterUser",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const res = await api.post(apiEnpoint.driverBookings, userData);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Registration failed");
+    }
+  }
+);
+
+
+export const bookingCab = createAsyncThunk(
+  "user/RegisterUser",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const res = await api.post(apiEnpoint.carBookings, userData);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Registration failed");
+    }
+  }
+);

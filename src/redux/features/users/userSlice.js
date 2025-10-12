@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser } from "./userThunk";
+import { getMyBooking, loginUser } from "./userThunk";
 import { setToken } from "../../../utils/auth";
+import Booking from "../../../components/booking";
 
 
 const initialState = {
@@ -8,6 +9,7 @@ const initialState = {
   loading: false,
   error: null,
   user: null,
+  myBookingTable:[]
 };
 
 const userSlice = createSlice({
@@ -27,12 +29,24 @@ const userSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
-        // setToken(action.payload.token);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
+
+        builder
+      .addCase(getMyBooking.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getMyBooking.fulfilled, (state, action) => {
+        state.loading = false;
+        state.myBookingTable = action.payload;
+      })
+      .addCase(getMyBooking.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });  
   },
 });
 

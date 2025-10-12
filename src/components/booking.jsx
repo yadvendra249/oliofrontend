@@ -73,15 +73,18 @@ const Booking = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const payload = Object?.fromEntries(
+  Object?.entries(formData)?.filter(([_, v]) => v != null && v !== "")
+)
     if(subTabImmediate === "cab"){
-      dispatch(bookingCab(formData)).unwrap()
+      dispatch(bookingCab(payload)).unwrap()
       .then((res) => {
           if (res) {
             setFormData(initialFormState) 
           }
       });
     }else{
-      dispatch(bookingDriver(formData)).unwrap()
+      dispatch(bookingDriver(payload)).unwrap()
       .then((res) => {
           if (res) {
             setFormData(initialFormState) 

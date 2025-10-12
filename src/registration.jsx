@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import "./index.css";
 import { useDispatch } from "react-redux";
 import { RegisterUser } from "./redux/features/users/userThunk";
+import { setToken } from "./utils/auth";
 
 
 
@@ -13,15 +14,20 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(username.firstName && username.lastName && username.username && username.email && username.password && username.role ){
-        dispatch(RegisterUser(username)).unwrap()
-            .then((res) => {
-                localStorage.setItem("token", res);
-                navigate("/login");
-            });
-    }else{
-        console.log("Please fill all fields")
-    }
+        if (username.firstName && username.lastName && username.username && username.email && username.password && username.role) {
+            dispatch(RegisterUser(username)).unwrap()
+                .then((res) => {
+                    // localStorage.setItem("token", res);
+                    if (res) {
+                        setToken(JSON.stringify(res))
+                        navigate("/login");
+                    }
+
+
+                });
+        } else {
+            console.log("Please fill all fields")
+        }
     }
     const handleChange = (e) => {
         setUsername(prev => ({ ...prev, [e.target.name]: e.target.value }))

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom"; 
-import "./index.css"; 
+import { useNavigate, Link } from "react-router-dom";
+import "./index.css";
 import { useDispatch } from "react-redux";
+import { loginUser } from "./redux/features/users/userThunk";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -13,10 +14,10 @@ const Login = () => {
         e.preventDefault();
         dispatch(loginUser({ email, password })).unwrap()
             .then((res) => {
-                localStorage.setItem("token", res);   
-        navigate("/home");
-    });
-}
+                localStorage.setItem("token", res);
+                navigate("/home");
+            });
+    }
 
     return (
         <div className="login-container">
@@ -39,7 +40,7 @@ const Login = () => {
                             className="form-input"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            
+
                         />
                     </div>
                     <button type="submit" className="login-button">

@@ -3,8 +3,8 @@ import { getToken, clearToken } from "../utils/auth";
 
 
 const api = axios.create({
-  baseURL: "https://your-api-domain.com/api", 
-  timeout: 10000, 
+  baseURL: "http://localhost:8081/",
+  timeout: 10000,
 });
 
 
@@ -26,7 +26,7 @@ api.interceptors.response.use(
 
     if (status === 401) {
       clearToken();
-      window.location.href = "/login"; 
+      window.location.href = "/login";
     }
 
     return Promise.reject(error);

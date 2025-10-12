@@ -12,10 +12,12 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        localStorage.setItem("token",JSON.stringify({accessToken:"dummy"}))
         dispatch(loginUser({ email, password })).unwrap()
             .then((res) => {
-                localStorage.setItem("token", res);
+                if(res){
                 navigate("/home");
+                }
             });
     }
 

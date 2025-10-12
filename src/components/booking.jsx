@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { bookingCab } from "../redux/features/users/userThunk";
+import dayjs from "dayjs";
 
 const Booking = () => {
   // Tab states
@@ -13,10 +14,13 @@ const Booking = () => {
     // Immediate Cab
     immediateCabType: "",
     name: "",
+    passengerName:"",
     mobileNumber: "",
+    passengerMobileNumber:"",
     otp: "",
-    pickupLocation: "",
-    dropLocation: "",
+    pickupAddress:"",
+    dropAddress: "",
+    dropAddress:"",
     terminal: "",
     passengers: "",
     luggage: "",
@@ -27,7 +31,7 @@ const Booking = () => {
     driverMobileNumber: "",
     driverOtp: "",
     driverPickupLocation: "",
-    driverDropLocation: "",
+    driverdropAddress: "",
     numberOfDays: "",
     // Schedule Cab
     scheduleCabType: "",
@@ -35,7 +39,7 @@ const Booking = () => {
     scheduleMobileNumber: "",
     scheduleOtp: "",
     schedulePickupLocation: "",
-    scheduleDropLocation: "",
+    scheduledropAddress: "",
     scheduleDate: "",
     dropDate: "",
     pickupDate: "",
@@ -46,7 +50,9 @@ const Booking = () => {
     scheduleDriverMobileNumber: "",
     scheduleDriverOtp: "",
     scheduleDriverPickupLocation: "",
-    scheduleDriverDropLocation: "",
+    scheduleDriverdropAddress: "",
+    vehicleType:"",
+    pickupTime:""
   }
 
   // Form states
@@ -73,10 +79,15 @@ const Booking = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const payload = Object?.fromEntries(
-  Object?.entries(formData)?.filter(([_, v]) => v != null && v !== "")
-)
     if(subTabImmediate === "cab"){
+          const payload =  {
+  "passengerName": formData?.passengerName,
+  "passengerMobileNumber": formData?.passengerMobileNumber,
+  "pickupAddress":formData?.pickupAddress,
+  "dropAddress": formData?.dropAddress,
+  "vehicleType": formData?.vehicleType,
+  "pickupTime":  dayjs(new Date()).toISOString()
+}
       dispatch(bookingCab(payload)).unwrap()
       .then((res) => {
           if (res) {
@@ -84,6 +95,15 @@ const Booking = () => {
           }
       });
     }else{
+          const payload =  {
+  "passengerName": formData?.passengerName,
+  "passengerMobileNumber": formData?.passengerMobileNumber,
+  "pickupAddress":formData?.pickupAddress,
+  "dropAddress": formData?.dropAddress,
+  "vehicleType": formData?.vehicleType,
+   "startTime":  dayjs(new Date()).toISOString(),
+  "endTime":  dayjs(new Date()).toISOString()
+}
       dispatch(bookingDriver(payload)).unwrap()
       .then((res) => {
           if (res) {
@@ -92,6 +112,7 @@ const Booking = () => {
       });
     }
   };
+
 
   return (
     <>
@@ -238,9 +259,9 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="name"
-                              name="name"
+                              name="passengerName"
                               placeholder="Name"
-                              value={formData.name}
+                              value={formData?.passengerName}
                               onChange={handleInputChange}
                               required
                             />
@@ -251,9 +272,9 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="mobileNumber"
-                              name="mobileNumber"
+                              name="passengerMobileNumber"
                               placeholder="Mobile Number"
-                              value={formData.mobileNumber}
+                              value={formData.passengerMobileNumber}
                               onChange={handleInputChange}
                               required
                             />
@@ -277,22 +298,22 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="pickupLocation"
-                              name="pickupLocation"
+                              name="pickupAddress"
                               placeholder="Pickup Location"
-                              value={formData.pickupLocation}
+                              value={formData.pickupAddress}
                               onChange={handleInputChange}
                               required
                             />
                           </div>
                           <div className="form-group">
-                            <label htmlFor="dropLocation">Drop Location</label>
+                            <label htmlFor="dropAddress">Drop Location</label>
                             <input
                               type="text"
                               className="form-control"
-                              id="dropLocation"
-                              name="dropLocation"
+                              id="dropAddress"
+                              name="dropAddress"
                               placeholder="Drop Location"
-                              value={formData.dropLocation}
+                              value={formData.dropAddress}
                               onChange={handleInputChange}
                               required
                             />
@@ -436,22 +457,22 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="driverPickupLocation"
-                              name="driverPickupLocation"
+                              name="pickupAddress"
                               placeholder="Pickup Location"
-                              value={formData.driverPickupLocation}
+                              value={formData.pickupAddress}
                               onChange={handleInputChange}
                               required
                             />
                           </div>
                           <div className="form-group">
-                            <label htmlFor="driverDropLocation">Drop Location</label>
+                            <label htmlFor="driverdropAddress">Drop Location</label>
                             <input
                               type="text"
                               className="form-control"
-                              id="driverDropLocation"
-                              name="driverDropLocation"
+                              id="driverdropAddress"
+                              name="driverdropAddress"
                               placeholder="Drop Location"
-                              value={formData.driverDropLocation}
+                              value={formData.driverdropAddress}
                               onChange={handleInputChange}
                               required
                             />
@@ -538,9 +559,9 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="scheduleName"
-                              name="scheduleName"
+                              name="passengerName"
                               placeholder="Name"
-                              value={formData.scheduleName}
+                              value={formData.passengerName}
                               onChange={handleInputChange}
                               required
                             />
@@ -551,9 +572,9 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="scheduleMobileNumber"
-                              name="scheduleMobileNumber"
+                              name="passengerMobileNumber"
                               placeholder="Mobile Number"
-                              value={formData.scheduleMobileNumber}
+                              value={formData.passengerMobileNumber}
                               onChange={handleInputChange}
                               required
                             />
@@ -577,22 +598,22 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="schedulePickupLocation"
-                              name="schedulePickupLocation"
+                              name="pickupAddress"
                               placeholder="Pickup Location"
-                              value={formData.schedulePickupLocation}
+                              value={formData.pickupAddress}
                               onChange={handleInputChange}
                               required
                             />
                           </div>
                           <div className="form-group">
-                            <label htmlFor="scheduleDropLocation">Drop Location</label>
+                            <label htmlFor="scheduledropAddress">Drop Location</label>
                             <input
                               type="text"
                               className="form-control"
-                              id="scheduleDropLocation"
-                              name="scheduleDropLocation"
+                              id="scheduledropAddress"
+                              name="scheduledropAddress"
                               placeholder="Drop Location"
-                              value={formData.scheduleDropLocation}
+                              value={formData.scheduledropAddress}
                               onChange={handleInputChange}
                               required
                             />
@@ -749,22 +770,22 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="scheduleDriverPickupLocation"
-                              name="scheduleDriverPickupLocation"
+                              name="pickupAddress"
                               placeholder="Pickup Location"
-                              value={formData.scheduleDriverPickupLocation}
+                              value={formData.pickupAddress}
                               onChange={handleInputChange}
                               required
                             />
                           </div>
                           <div className="form-group">
-                            <label htmlFor="scheduleDriverDropLocation">Drop Location</label>
+                            <label htmlFor="scheduleDriverdropAddress">Drop Location</label>
                             <input
                               type="text"
                               className="form-control"
-                              id="scheduleDriverDropLocation"
-                              name="scheduleDriverDropLocation"
+                              id="scheduleDriverdropAddress"
+                              name="scheduleDriverdropAddress"
                               placeholder="Drop Location"
-                              value={formData.scheduleDriverDropLocation}
+                              value={formData.scheduleDriverdropAddress}
                               onChange={handleInputChange}
                               required
                             />

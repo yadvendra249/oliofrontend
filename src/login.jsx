@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom"; 
 import "./index.css"; 
 import { useDispatch } from "react-redux";
+import { loginUser } from "./redux/features/users/userThunk";
 
 const Login = () => {
     const [email, setEmail] = useState("");

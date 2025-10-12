@@ -3,8 +3,9 @@ import { getToken, clearToken } from "../utils/auth";
 
 
 const api = axios.create({
-  baseURL: "https://your-api-domain.com/api", 
-  timeout: 10000, 
+  baseURL: "/api", 
+  timeout: 10000,
+  withCredentials: true,
 });
 
 
@@ -32,5 +33,6 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
 
 export default api;

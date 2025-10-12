@@ -60,7 +60,7 @@ export const getMyBooking = createAsyncThunk(
   "user/RegisterUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const res = await api.post(apiEnpoint.myBookings, userData);
+      const res = await api.get(apiEnpoint.myBookings, userData);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response?.data || "Registration failed");

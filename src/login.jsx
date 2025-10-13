@@ -13,18 +13,21 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        localStorage.setItem("token",JSON.stringify({accessToken:"testtoken"}))
         let payload = {
             username: email,
             password: password
         }
-        dispatch(loginUser(payload)).unwrap()
-            .then((res) => {
-                if (res) {
-                    setToken(JSON.stringify(res))
-                    navigate("/home");
+        // dispatch(loginUser(payload)).unwrap()
+        //     .then((res) => {
+        //         if (res) {
+        //             setToken(JSON.stringify(res))
+        //             navigate("/home");
 
-                }
-            });
+        //         }
+        //     });
+         navigate("/home");
+
     }
 
     return (

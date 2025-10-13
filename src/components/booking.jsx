@@ -79,7 +79,7 @@ const Booking = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (subTabImmediate === "cab") {
+    if (subTabImmediate === "cab" || subTabSchedule === "cab") {
       const payload = {
         "passengerName": formData?.passengerName,
         "passengerMobileNumber": formData?.passengerMobileNumber,
@@ -210,13 +210,19 @@ const Booking = () => {
                     <div className="tab-buttons sub">
                       <button
                         className={`tab-btn ${subTabImmediate === "cab" ? "active" : ""}`}
-                        onClick={() => setSubTabImmediate("cab")}
+                         onClick={() =>{ 
+                          setSubTabImmediate("cab") 
+                          setSubTabSchedule("cab")
+                        }}
                       >
                         Cab
                       </button>
                       <button
                         className={`tab-btn ${subTabImmediate === "driver" ? "active" : ""}`}
-                        onClick={() => setSubTabImmediate("driver")}
+                        onClick={() =>{ 
+                          setSubTabImmediate("driver") 
+                          setSubTabSchedule("driver")
+                        }}
                       >
                         Driver
                       </button>
@@ -510,13 +516,19 @@ const Booking = () => {
                     <div className="tab-buttons sub">
                       <button
                         className={`tab-btn ${subTabSchedule === "cab" ? "active" : ""}`}
-                        onClick={() => setSubTabSchedule("cab")}
+                        onClick={() =>{ 
+                          setSubTabImmediate("driver") 
+                          setSubTabSchedule("driver")
+                        }}
                       >
                         Cab
                       </button>
                       <button
                         className={`tab-btn ${subTabSchedule === "driver" ? "active" : ""}`}
-                        onClick={() => setSubTabSchedule("driver")}
+                      onClick={() =>{ 
+                          setSubTabImmediate("driver") 
+                          setSubTabSchedule("driver")
+                        }}
                       >
                         Driver
                       </button>
@@ -612,9 +624,9 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="scheduledropAddress"
-                              name="scheduledropAddress"
+                              name="dropAddress"
                               placeholder="Drop Location"
-                              value={formData.scheduledropAddress}
+                              value={formData.dropAddress}
                               onChange={handleInputChange}
                               required
                             />
@@ -727,14 +739,15 @@ const Booking = () => {
                         </div>
                         <form onSubmit={handleSubmit} className="request-form">
                           <div className="form-group">
-                            <label htmlFor="scheduleDriverName">Driver Name</label>
+                            <label htmlFor="scheduleDriverName"> Name</label>
+                                        
                             <input
                               type="text"
                               className="form-control"
                               id="scheduleDriverName"
-                              name="scheduleDriverName"
+                              name="passengerName"
                               placeholder="Driver Name"
-                              value={formData.scheduleDriverName}
+                              value={formData.passengerName}
                               onChange={handleInputChange}
                               required
                             />
@@ -745,9 +758,9 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="scheduleDriverMobileNumber"
-                              name="scheduleDriverMobileNumber"
+                              name="passengerMobileNumber"
                               placeholder="Mobile Number"
-                              value={formData.scheduleDriverMobileNumber}
+                              value={formData.passengerMobileNumber}
                               onChange={handleInputChange}
                               required
                             />
@@ -784,9 +797,9 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="scheduleDriverdropAddress"
-                              name="scheduleDriverdropAddress"
+                              name="dropAddress"
                               placeholder="Drop Location"
-                              value={formData.scheduleDriverdropAddress}
+                              value={formData.dropAddress}
                               onChange={handleInputChange}
                               required
                             />

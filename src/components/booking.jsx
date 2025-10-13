@@ -210,8 +210,8 @@ const Booking = () => {
                     <div className="tab-buttons sub">
                       <button
                         className={`tab-btn ${subTabImmediate === "cab" ? "active" : ""}`}
-                         onClick={() =>{ 
-                          setSubTabImmediate("cab") 
+                        onClick={() => {
+                          setSubTabImmediate("cab")
                           setSubTabSchedule("cab")
                         }}
                       >
@@ -219,8 +219,8 @@ const Booking = () => {
                       </button>
                       <button
                         className={`tab-btn ${subTabImmediate === "driver" ? "active" : ""}`}
-                        onClick={() =>{ 
-                          setSubTabImmediate("driver") 
+                        onClick={() => {
+                          setSubTabImmediate("driver")
                           setSubTabSchedule("driver")
                         }}
                       >
@@ -516,17 +516,17 @@ const Booking = () => {
                     <div className="tab-buttons sub">
                       <button
                         className={`tab-btn ${subTabSchedule === "cab" ? "active" : ""}`}
-                        onClick={() =>{ 
-                          setSubTabImmediate("driver") 
-                          setSubTabSchedule("driver")
+                        onClick={() => {
+                          setSubTabImmediate("cab")
+                          setSubTabSchedule("cab")
                         }}
                       >
                         Cab
                       </button>
                       <button
                         className={`tab-btn ${subTabSchedule === "driver" ? "active" : ""}`}
-                      onClick={() =>{ 
-                          setSubTabImmediate("driver") 
+                        onClick={() => {
+                          setSubTabImmediate("driver")
                           setSubTabSchedule("driver")
                         }}
                       >
@@ -740,7 +740,7 @@ const Booking = () => {
                         <form onSubmit={handleSubmit} className="request-form">
                           <div className="form-group">
                             <label htmlFor="scheduleDriverName"> Name</label>
-                                        
+
                             <input
                               type="text"
                               className="form-control"

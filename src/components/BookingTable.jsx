@@ -32,32 +32,32 @@ const driverBookingsSample = [
 const BookingTable = () => {
     const [cabBookings, setCabBookings] = useState([]);
     const [driverBookings, setDriverBookings] = useState([]);
-    const [loading,setLoading]= useState(false)
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getMyBooking()).unwrap().then((res)=>{
-            if(res){
+        dispatch(getMyBooking()).unwrap().then((res) => {
+            if (res) {
                 setCabBookings(res?.carBookings || [])
                 setDriverBookings(res?.driverBookings || [])
-            }   
+            }
         })
     }, [loading])
 
-    const handleCancelCab = (id,action) => {
-        dispatch(approveCar()).unwrap({id, action: action}).then((res)=>{
-            if(res){
-               setLoading((pre)=>!pre)
-            }      
-    })
-}
-
-    const handleCancelDriver = (id,action) => {
-        dispatch(approveDriver({id, action: action})).unwrap().then((res)=>{
-            if(res){
-                 setLoading((pre)=>!pre)
+    const handleCancelCab = (id, action) => {
+        dispatch(approveCar()).unwrap({ id, action: action }).then((res) => {
+            if (res) {
+                setLoading((pre) => !pre)
             }
-    })
-}
+        })
+    }
+
+    const handleCancelDriver = (id, action) => {
+        dispatch(approveDriver({ id, action: action })).unwrap().then((res) => {
+            if (res) {
+                setLoading((pre) => !pre)
+            }
+        })
+    }
 
     return (
         <div className="booking-table-container">
@@ -153,11 +153,11 @@ const BookingTable = () => {
                             <td>{b.type}</td>
                             <td>{b.outstation}</td>
                             <td>{b.dropLocation}</td>
-                            <td style={{display:"flex"}}>
-                                <button className="cancel-btn" onClick={() => handleCancelCab(b.id,"cancel")}>
-                                    Cancel
+                            <td style={{ display: "flex" }}>
+                                <button className="cancel-btn" onClick={() => handleCancelDriver(b.id, "approve")}>
+                                    Approve
                                 </button>
-                                 <button className="cancel-btn" onClick={() => handleCancelCab(b.id,"cancel")}>
+                                <button className="cancel-btn" onClick={() => handleCancelCab(b.id, "cancel")}>
                                     Cancel
                                 </button>
                             </td>
@@ -190,12 +190,12 @@ const BookingTable = () => {
                             <td>{b.type}</td>
                             <td>{b.outstation}</td>
                             <td>{b.dropLocation}</td>
-                            <td style={{display:"flex"}}>
-                                <button className="cancel-btn" onClick={() => handleCancelDriver(b.id,"approve")}>
+                            <td style={{ display: "flex" }}>
+                                <button className="cancel-btn" onClick={() => handleCancelDriver(b.id, "approve")}>
                                     Approve
                                 </button>
-                                  <button className="cancel-btn" onClick={() => handleCancelDriver(b.id,"approve")}>
-                                   Approve
+                                <button className="cancel-btn" onClick={() => handleCancelCab(b.id, "cancel")}>
+                                    Cancel
                                 </button>
                             </td>
                         </tr>

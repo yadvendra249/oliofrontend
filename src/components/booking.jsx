@@ -112,6 +112,8 @@ const Booking = () => {
     }
   };
 
+  console.log("Form Data", formData)
+
 
   return (
     <>
@@ -417,9 +419,9 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="driverName"
-                              name="driverName"
+                              name="passengerName"
                               placeholder="Name"
-                              value={formData.driverName}
+                              value={formData.passengerName}
                               onChange={handleInputChange}
                               required
                             />
@@ -430,9 +432,9 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="driverMobileNumber"
-                              name="driverMobileNumber"
+                              name="passengerMobileNumber"
                               placeholder="Mobile Number"
-                              value={formData.driverMobileNumber}
+                              value={formData.passengerMobileNumber}
                               onChange={handleInputChange}
                               required
                             />
@@ -469,9 +471,9 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="driverdropAddress"
-                              name="driverdropAddress"
+                              name="dropAddress"
                               placeholder="Drop Location"
-                              value={formData.driverdropAddress}
+                              value={formData.dropAddress}
                               onChange={handleInputChange}
                               required
                             />

@@ -79,7 +79,7 @@ const Booking = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (subTabImmediate === "cab") {
+    if (subTabImmediate === "cab" || subTabSchedule === "cab") {
       const payload = {
         "passengerName": formData?.passengerName,
         "passengerMobileNumber": formData?.passengerMobileNumber,
@@ -210,13 +210,19 @@ const Booking = () => {
                     <div className="tab-buttons sub">
                       <button
                         className={`tab-btn ${subTabImmediate === "cab" ? "active" : ""}`}
-                        onClick={() => setSubTabImmediate("cab")}
+                         onClick={() =>{ 
+                          setSubTabImmediate("cab") 
+                          setSubTabSchedule("cab")
+                        }}
                       >
                         Cab
                       </button>
                       <button
                         className={`tab-btn ${subTabImmediate === "driver" ? "active" : ""}`}
-                        onClick={() => setSubTabImmediate("driver")}
+                        onClick={() =>{ 
+                          setSubTabImmediate("driver") 
+                          setSubTabSchedule("driver")
+                        }}
                       >
                         Driver
                       </button>
@@ -510,13 +516,19 @@ const Booking = () => {
                     <div className="tab-buttons sub">
                       <button
                         className={`tab-btn ${subTabSchedule === "cab" ? "active" : ""}`}
-                        onClick={() => setSubTabSchedule("cab")}
+                        onClick={() =>{ 
+                          setSubTabImmediate("driver") 
+                          setSubTabSchedule("driver")
+                        }}
                       >
                         Cab
                       </button>
                       <button
                         className={`tab-btn ${subTabSchedule === "driver" ? "active" : ""}`}
-                        onClick={() => setSubTabSchedule("driver")}
+                      onClick={() =>{ 
+                          setSubTabImmediate("driver") 
+                          setSubTabSchedule("driver")
+                        }}
                       >
                         Driver
                       </button>

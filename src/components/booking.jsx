@@ -624,9 +624,9 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="scheduledropAddress"
-                              name="scheduledropAddress"
+                              name="dropAddress"
                               placeholder="Drop Location"
-                              value={formData.scheduledropAddress}
+                              value={formData.dropAddress}
                               onChange={handleInputChange}
                               required
                             />
@@ -739,14 +739,15 @@ const Booking = () => {
                         </div>
                         <form onSubmit={handleSubmit} className="request-form">
                           <div className="form-group">
-                            <label htmlFor="scheduleDriverName">Driver Name</label>
+                            <label htmlFor="scheduleDriverName"> Name</label>
+                                        
                             <input
                               type="text"
                               className="form-control"
                               id="scheduleDriverName"
-                              name="scheduleDriverName"
+                              name="passengerName"
                               placeholder="Driver Name"
-                              value={formData.scheduleDriverName}
+                              value={formData.passengerName}
                               onChange={handleInputChange}
                               required
                             />
@@ -757,9 +758,9 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="scheduleDriverMobileNumber"
-                              name="scheduleDriverMobileNumber"
+                              name="passengerMobileNumber"
                               placeholder="Mobile Number"
-                              value={formData.scheduleDriverMobileNumber}
+                              value={formData.passengerMobileNumber}
                               onChange={handleInputChange}
                               required
                             />
@@ -796,9 +797,9 @@ const Booking = () => {
                               type="text"
                               className="form-control"
                               id="scheduleDriverdropAddress"
-                              name="scheduleDriverdropAddress"
+                              name="dropAddress"
                               placeholder="Drop Location"
-                              value={formData.scheduleDriverdropAddress}
+                              value={formData.dropAddress}
                               onChange={handleInputChange}
                               required
                             />

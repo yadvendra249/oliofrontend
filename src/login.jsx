@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import "./index.css";
 import { useDispatch } from "react-redux";
 import { loginUser } from "./redux/features/users/userThunk";
+import { setToken } from "./utils/auth";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -21,6 +22,7 @@ const Login = () => {
                 if (res) {
                     setToken(JSON.stringify(res))
                     navigate("/home");
+
                 }
             });
     }

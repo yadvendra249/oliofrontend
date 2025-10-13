@@ -85,7 +85,7 @@ const Booking = () => {
         "passengerMobileNumber": formData?.passengerMobileNumber,
         "pickupAddress": formData?.pickupAddress,
         "dropAddress": formData?.dropAddress,
-        "vehicleType": formData?.vehicleType,
+        "vehicleType": formData?.vehicleType || "SUV",
         "pickupTime": dayjs(new Date()).toISOString()
       }
       dispatch(bookingCab(payload)).unwrap()
@@ -100,7 +100,6 @@ const Booking = () => {
         "passengerMobileNumber": formData?.passengerMobileNumber,
         "pickupAddress": formData?.pickupAddress,
         "dropAddress": formData?.dropAddress,
-        "vehicleType": formData?.vehicleType,
         "startTime": dayjs(new Date()).toISOString(),
         "endTime": dayjs(new Date()).toISOString()
       }

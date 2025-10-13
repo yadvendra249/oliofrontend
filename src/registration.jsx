@@ -14,7 +14,7 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (username.firstName && username.lastName && username.username && username.email && username.password && username.role) {
+        if (username.firstName && username.lastName && username.username && username.password && username.role) {
             dispatch(RegisterUser(username)).unwrap()
                 .then((res) => {
                     // localStorage.setItem("token", res);
@@ -72,17 +72,7 @@ const Register = () => {
                         />
                     </div>
 
-                    <div className="form-group">
-                        <label>Email</label>
-                        <input
-                            type="email"
-                            className="form-input"
-                            value={username.email}
-                            name="email"
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
+
                     <div className="form-group">
                         <label>Password</label>
                         <input

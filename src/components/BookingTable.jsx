@@ -2,32 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { approveDriver, getMyBooking } from "../redux/features/users/userThunk";
 
-const cabBookingsSample = [
-    {
-        id: 1,
-        name: "Ali",
-        mobile: "03001234567",
-        bookingDate: "2025-10-12",
-        bookingLocation: "Lahore",
-        type: "Airport",
-        outstation: "No",
-        dropLocation: "Islamabad",
-    },
-    // ...add more sample data
-];
-
-const driverBookingsSample = [
-    {
-        id: 1,
-        name: "Ahmed",
-        mobile: "03007654321",
-        bookingDate: "2025-10-13",
-        bookingLocation: "Karachi",
-        type: "Local",
-        outstation: "Yes",
-        dropLocation: "Hyderabad",
-    }
-];
 
 const BookingTable = () => {
     const [cabBookings, setCabBookings] = useState([]);
@@ -135,25 +109,25 @@ const BookingTable = () => {
                     <tr>
                         <th>Name</th>
                         <th>Mobile No</th>
-                        <th>Booking Date</th>
-                        <th>Booking Location</th>
-                        <th>Airport</th>
-                        <th>Outstation</th>
+                        <th>Status</th>
+                        <th>Booking Date Time</th>
+                         <th>End Date Time</th>
+                         <th>Booking Location</th>
                         <th>Drop Location</th>
-                        <th>Cancel Booking</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {cabBookings.map(b => (
                         <tr key={b.id}>
-                            <td>{b.name}</td>
-                            <td>{b.mobile}</td>
-                            <td>{b.bookingDate}</td>
-                            <td>{b.bookingLocation}</td>
-                            <td>{b.type}</td>
-                            <td>{b.outstation}</td>
-                            <td>{b.dropLocation}</td>
-                            <td style={{ display: "flex" }}>
+                            <td>{b.passengerName}</td>
+                            <td>{b.passengerMobileNumber}</td>
+                            <td>{b.status}</td>
+                            <td>{b.startTime}</td>
+                            <td>{b.endTime}</td>
+                             <td>{b.pickupAddress}</td>
+                            <td>{b.dropAddress}</td>
+                            <td style={{ display: "flex gap:2" }}>
                                 <button className="cancel-btn" onClick={() => handleCancelDriver(b.id, "approve")}>
                                     Approve
                                 </button>
@@ -170,27 +144,27 @@ const BookingTable = () => {
             <table className="booking-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                          <th>Name</th>
                         <th>Mobile No</th>
-                        <th>Booking Date</th>
-                        <th>Booking Location</th>
-                        <th>Airport</th>
-                        <th>Outstation</th>
+                        <th>Status</th>
+                        <th>Booking Date Time</th>
+                         <th>End Date Time</th>
+                         <th>Booking Location</th>
                         <th>Drop Location</th>
-                        <th>Cancel Booking</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {driverBookings.map(b => (
                         <tr key={b.id}>
-                            <td>{b.name}</td>
-                            <td>{b.mobile}</td>
-                            <td>{b.bookingDate}</td>
-                            <td>{b.bookingLocation}</td>
-                            <td>{b.type}</td>
-                            <td>{b.outstation}</td>
-                            <td>{b.dropLocation}</td>
-                            <td style={{ display: "flex" }}>
+                            <td>{b.passengerName}</td>
+                            <td>{b.passengerMobileNumber}</td>
+                            <td>{b.status}</td>
+                            <td>{b.startTime}</td>
+                            <td>{b.endTime}</td>
+                             <td>{b.pickupAddress}</td>
+                            <td>{b.dropAddress}</td>
+                            <td style={{ display: "flex gap:2" }}>
                                 <button className="cancel-btn" onClick={() => handleCancelDriver(b.id, "approve")}>
                                     Approve
                                 </button>

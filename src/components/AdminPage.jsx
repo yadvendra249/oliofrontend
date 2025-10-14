@@ -45,8 +45,7 @@ const AdminPage = () => {
         setDriverForm((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleCarSubmit = (e) => {
-        e.preventDefault();
+    const handleCarSubmit = () => {
         dispatch(postAdminCars(carForm)).unwrap().then((res) => {
             if (res) {
                 setCarForm(initialCar);
@@ -56,8 +55,7 @@ const AdminPage = () => {
     };
 
 
-    const handleDriverSubmit = async (e) => {
-        e.preventDefault();
+    const handleDriverSubmit = async () => {
         dispatch(postAdminDrivers(driverForm)).unwrap().then((res) => {
             if (res) {
                 setDriverForm(initialDriver);
@@ -99,7 +97,7 @@ const AdminPage = () => {
                 {/* Driver Form */}
                 <div className="admin-col">
                     <h3 style={{ textAlign: "center" }}>Driver Form</h3>
-                    <form onSubmit={handleDriverSubmit}>
+                    <form >
                         <div className="form-group">
                             <label>First Name</label>
                             <input type="text" name="firstName" className="form-control" value={driverForm.firstName} onChange={handleDriverChange} required />
@@ -124,7 +122,7 @@ const AdminPage = () => {
                             <label>Address</label>
                             <input type="text" name="address" className="form-control" value={driverForm.address} onChange={handleDriverChange} required />
                         </div>
-                        <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+                        <button onClick={()=>handleDriverSubmit()} className="btn btn-primary w-100" disabled={loading}>
                             Add Driver
                         </button>
                     </form>
@@ -133,7 +131,7 @@ const AdminPage = () => {
                 {/* Car Booking Form */}
                 <div className="admin-col">
                     <h3 style={{ textAlign: "center" }}>Car Booking Form</h3>
-                    <form onSubmit={handleCarSubmit}>
+                    <form>
                         <div className="form-group">
                             <label>Passenger Name</label>
                             <input type="text" name="passengerName" className="form-control" value={carForm.passengerName} onChange={(e) => {
@@ -181,7 +179,10 @@ const AdminPage = () => {
                                 setCarForm((prev) => ({ ...prev, [name]: value }));
                             }} required />
                         </div>
-                        <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+                        <button 
+                        onClick={()=>handleCarSubmit()}
+                         className="btn btn-primary w-100"
+                          disabled={loading}>
                             Add Car Booking
                         </button>
                     </form>

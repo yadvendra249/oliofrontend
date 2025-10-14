@@ -73,7 +73,7 @@ export const approveCar = createAsyncThunk(
   "user/RegisterUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const res = await api.post(apiEnpoint.carBookings + "/"+userData?.id + "/" + userData?.action);
+      const res = await api.put(apiEnpoint.carBookings + "/" + userData?.id + "/" + userData?.action);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response?.data || "Registration failed");
@@ -85,7 +85,7 @@ export const approveDriver = createAsyncThunk(
   "user/RegisterUser",
   async (userData, { rejectWithValue }) => {
     try {
-          const res = await api.post(apiEnpoint.driverBookings + "/"+userData?.id + "/" + userData?.action);
+      const res = await api.put(apiEnpoint.driverBookings + "/" + userData?.id + "/" + userData?.action);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response?.data || "Registration failed");

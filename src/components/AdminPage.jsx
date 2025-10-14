@@ -27,17 +27,17 @@ const AdminPage = () => {
     const [carForm, setCarForm] = useState(initialCar);
     const [drivers, setDrivers] = useState([]);
     const [cars, setCars] = useState([]);
-    const [loading, setLoading] = useState(false);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getAdminDrivers()).unwrap().then((res) => {
-            setDrivers(res?.data || [])
+            setDrivers(res || [])
         })
         dispatch(getAdminCars()).unwrap().then((res) => {
-            setCars(res?.data || [])
+            setCars(res || [])
         })
-    }, [loading])
+    }, [])
 
 
     const handleDriverChange = (e) => {
@@ -50,6 +50,9 @@ const AdminPage = () => {
             if (res) {
                 setCarForm(initialCar);
                   setLoading(pre => !pre)
+                   dispatch(getAdminCars()).unwrap().then((res) => {
+            setCars(res || [])
+        })
             }
         })
     };
@@ -60,6 +63,9 @@ const AdminPage = () => {
             if (res) {
                 setDriverForm(initialDriver);
                   setLoading(pre => !pre)
+                    dispatch(getAdminDrivers()).unwrap().then((res) => {
+            setDrivers(res || [])
+        })
             }
         })
     };

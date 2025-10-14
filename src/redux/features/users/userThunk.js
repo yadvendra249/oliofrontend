@@ -96,7 +96,7 @@ export const approveDriver = createAsyncThunk(
 
 export const   getAdminDrivers = createAsyncThunk(
   "user/AdminDrivers",
-  async ({ rejectWithValue }) => {
+  async (type,{ rejectWithValue }) => {
     try {
       const res = await api.get(apiEnpoint.adminDrivers);
       return res.data;
@@ -108,7 +108,7 @@ export const   getAdminDrivers = createAsyncThunk(
 
 export const   getAdminCars = createAsyncThunk(
   "user/adminVehcales",
-  async ({ rejectWithValue }) => {
+  async (type,{ rejectWithValue }) => {
     try {
       const res = await api.get(apiEnpoint.adminVehicles);
       return res.data;

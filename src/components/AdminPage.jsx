@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import api from "../services/api";
-import apiEndpoint from "../constants/apiEndpoint";
+import { deleteAdminCars, deleteAdminDrivers, getAdminCars, getAdminDrivers, postAdminCars, postAdminDrivers } from "../redux/features/users/userThunk";
+import { useDispatch } from "react-redux";
 
 const initialDriver = {
     firstName: "",
@@ -28,85 +28,58 @@ const AdminPage = () => {
     const [drivers, setDrivers] = useState([]);
     const [cars, setCars] = useState([]);
     const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
 
-    // 🧩 Load existing data on mount
     useEffect(() => {
-        async function fetchData() {
-            setLoading(true);
-            try {
-                const [driversRes, carsRes] = await Promise.all([
-                    api.get(apiEndpoint.adminDrivers),
-                    api.get(apiEndpoint.adminCarBookings),
-                ]);
-                setDrivers(driversRes.data || []);
-                setCars(carsRes.data || []);
-            } catch (error) {
-                console.error("Fetch error:", error);
-            } finally {
-                setLoading(false);
-            }
-        }
-        fetchData();
-    }, []);
+        dispatch(getAdminDrivers()).unwrap().then((res) => {
+            setDrivers(res?.data || [])
+        })
+        dispatch(getAdminCars()).unwrap().then((res) => {
+            setCars(res?.data || [])
+        })
+    }, [loading])
 
-    // 🧠 Handle input changes
+
     const handleDriverChange = (e) => {
         const { name, value } = e.target;
         setDriverForm((prev) => ({ ...prev, [name]: value }));
     };
 
-    // 🚗 Submit Car Form → POST
-    const handleCarSubmit = async (e) => {
+    const handleCarSubmit = (e) => {
         e.preventDefault();
-        try {
-            const res = await api.post(apiEndpoint.adminCarBookings, carForm);
-            setCars([...cars, res.data]);
-            setCarForm(initialCar);
-            alert("Car booking added successfully!");
-        } catch (err) {
-            console.error("Add car booking error:", err);
-            alert("Failed to add car booking!");
-        }
+        dispatch(postAdminCars(carForm)).unwrap().then((res) => {
+            if (res) {
+                setCarForm(initialCar);
+                  setLoading(pre => !pre)
+            }
+        })
     };
 
-    // 🧍 Submit Driver Form → POST
+
     const handleDriverSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const res = await api.post(apiEndpoint.adminDrivers, driverForm);
-            setDrivers([...drivers, res.data]);
-            setDriverForm(initialDriver);
-            alert("Driver added successfully!");
-        } catch (err) {
-            console.error("Add driver error:", err);
-            alert("Failed to add driver!");
-        }
+        dispatch(postAdminDrivers(driverForm)).unwrap().then((res) => {
+            if (res) {
+                setDriverForm(initialDriver);
+                  setLoading(pre => !pre)
+            }
+        })
     };
 
-    // ❌ Delete Driver → DELETE
-    const handleCancelDriver = async (idx) => {
-        const driver = drivers[idx];
-        try {
-            await api.delete(`${apiEndpoint.adminDrivers}/${driver.id || driver._id}`);
-            setDrivers(drivers.filter((_, i) => i !== idx));
-            alert("Driver deleted successfully!");
-        } catch (err) {
-            console.error("Delete driver error:", err);
-            alert("Failed to delete driver!");
-        }
+    const handleCancelDriver = (id) => {
+        dispatch(deleteAdminDrivers(id)).unwrap().then((res) => {
+            if (res) {
+                setLoading(pre => !pre)
+            }
+        })
     };
 
-    // ❌ Delete Car → DELETE
-    const handleCancelCar = async (idx) => {
-        const car = cars[idx];
-        try {
-            await api.delete(`${apiEndpoint.adminCarBookings}/${car.id || car._id}`);
-            setCars(cars.filter((_, i) => i !== idx));
-            alert("Car booking deleted successfully!");
-        } catch (err) {
-            console.error("Delete car error:", err);
-            alert("Failed to delete car booking!");
-        }
+    const handleCancelCar = (id) => {
+        dispatch(deleteAdminCars(id)).unwrap().then((res) => {
+            if (res) {
+                setLoading(pre => !pre)
+            }
+        })
     };
 
     return (
@@ -242,7 +215,7 @@ const AdminPage = () => {
                                     <td>{c.vehicleType}</td>
                                     <td>{c.pickupTime}</td>
                                     <td>
-                                        <button className="cancel-btn" onClick={() => handleCancelCar(idx)} disabled={loading}>
+                                        <button className="cancel-btn" onClick={() => handleCancelCar(c?.id)} disabled={loading}>
                                             Cancel
                                         </button>
                                     </td>
@@ -282,7 +255,7 @@ const AdminPage = () => {
                                     <td>{d.contactNumber}</td>
                                     <td>{d.address}</td>
                                     <td>
-                                        <button className="cancel-btn" onClick={() => handleCancelDriver(idx)} disabled={loading}>
+                                        <button className="cancel-btn" onClick={() => handleCancelDriver(d?.id)} disabled={loading}>
                                             Cancel
                                         </button>
                                     </td>

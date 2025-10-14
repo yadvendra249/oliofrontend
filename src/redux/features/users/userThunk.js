@@ -92,3 +92,75 @@ export const approveDriver = createAsyncThunk(
     }
   }
 );
+
+
+export const   getAdminDrivers = createAsyncThunk(
+  "user/AdminDrivers",
+  async ({ rejectWithValue }) => {
+    try {
+      const res = await api.get(apiEnpoint.adminDrivers);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Registration failed");
+    }
+  }
+);
+
+export const   getAdminCars = createAsyncThunk(
+  "user/adminVehcales",
+  async ({ rejectWithValue }) => {
+    try {
+      const res = await api.get(apiEnpoint.adminVehicles);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Registration failed");
+    }
+  }
+);
+
+
+export const postAdminCars = createAsyncThunk( "user/adminVehcales",async (data,{ rejectWithValue }) => {
+    try {
+      const res = await api.post(apiEnpoint.adminVehicles,data);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Registration failed");
+    }
+  }
+);
+
+export const   postAdminDrivers = createAsyncThunk(
+  "user/AdminDrivers",
+  async (data,{ rejectWithValue }) => {
+    try {
+      const res = await api.post(apiEnpoint.adminDrivers,data);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Registration failed");
+    }
+  }
+);
+
+
+export const   deleteAdminDrivers = createAsyncThunk(
+  "user/AdminDrivers",
+  async (data,{ rejectWithValue }) => {
+    try {
+      const res = await api.delete(apiEnpoint.adminDrivers+ "/" + data);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Registration failed");
+    }
+  }
+);
+
+
+export const deleteAdminCars = createAsyncThunk( "user/adminVehcales",async (data,{ rejectWithValue }) => {
+    try {
+      const res = await api.delete(apiEnpoint.adminVehicles +"/"+data);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Registration failed");
+    }
+  }
+);

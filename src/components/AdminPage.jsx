@@ -22,6 +22,7 @@ const initialCar = {
 
 const vehicleTypes = ["SEDAN", "SUV", "HATCHBACK"];
 
+
 const AdminPage = () => {
     const [driverForm, setDriverForm] = useState(initialDriver);
     const [carForm, setCarForm] = useState(initialCar);
@@ -29,6 +30,7 @@ const AdminPage = () => {
     const [cars, setCars] = useState([]);
 
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         dispatch(getAdminDrivers()).unwrap().then((res) => {
@@ -49,10 +51,10 @@ const AdminPage = () => {
         dispatch(postAdminCars(carForm)).unwrap().then((res) => {
             if (res) {
                 setCarForm(initialCar);
-                  setLoading(pre => !pre)
-                   dispatch(getAdminCars()).unwrap().then((res) => {
-            setCars(res || [])
-        })
+                setLoading(pre => !pre)
+                dispatch(getAdminCars()).unwrap().then((res) => {
+                    setCars(res || [])
+                })
             }
         })
     };
@@ -62,10 +64,10 @@ const AdminPage = () => {
         dispatch(postAdminDrivers(driverForm)).unwrap().then((res) => {
             if (res) {
                 setDriverForm(initialDriver);
-                  setLoading(pre => !pre)
-                    dispatch(getAdminDrivers()).unwrap().then((res) => {
-            setDrivers(res || [])
-        })
+                setLoading(pre => !pre)
+                dispatch(getAdminDrivers()).unwrap().then((res) => {
+                    setDrivers(res || [])
+                })
             }
         })
     };
@@ -128,7 +130,7 @@ const AdminPage = () => {
                             <label>Address</label>
                             <input type="text" name="address" className="form-control" value={driverForm.address} onChange={handleDriverChange} required />
                         </div>
-                        <button onClick={()=>handleDriverSubmit()} className="btn btn-primary w-100" disabled={loading}>
+                        <button onClick={() => handleDriverSubmit()} className="btn btn-primary w-100" disabled={loading}>
                             Add Driver
                         </button>
                     </form>
@@ -185,10 +187,10 @@ const AdminPage = () => {
                                 setCarForm((prev) => ({ ...prev, [name]: value }));
                             }} required />
                         </div>
-                        <button 
-                        onClick={()=>handleCarSubmit()}
-                         className="btn btn-primary w-100"
-                          disabled={loading}>
+                        <button
+                            onClick={() => handleCarSubmit()}
+                            className="btn btn-primary w-100"
+                            disabled={loading}>
                             Add Car Booking
                         </button>
                     </form>

@@ -300,6 +300,15 @@ const Booking = () => {
                             />
                           </div>
                           <div className="form-group">
+                            <label>Vehicle Type</label>
+                            <select name="vehicleType" className="form-control" value={formData.vehicleType} onChange={handleInputChange} required>
+                                <option value="">Select</option>
+                                {vehicleTypes.map((type) => (
+                                    <option key={type} value={type}>{type}</option>
+                                ))}
+                            </select>
+                        </div>
+                          <div className="form-group">
                             <label htmlFor="pickupLocation">Pickup Location</label>
                             <input
                               type="text"
@@ -605,6 +614,15 @@ const Booking = () => {
                               required
                             />
                           </div>
+                        <div className="form-group">
+                            <label>Vehicle Type</label>
+                            <select name="vehicleType" className="form-control" value={formData.vehicleType} onChange={handleInputChange} required>
+                                <option value="">Select</option>
+                                {vehicleTypes.map((type) => (
+                                    <option key={type} value={type}>{type}</option>
+                                ))}
+                            </select>
+                        </div>
                           <div className="form-group">
                             <label htmlFor="schedulePickupLocation">Pickup Location</label>
                             <input

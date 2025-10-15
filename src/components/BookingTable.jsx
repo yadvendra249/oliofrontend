@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { approveCar, approveDriver, getMyBooking } from "../redux/features/users/userThunk";
+import { getToken } from "../utils/auth";
 
 
 const BookingTable = () => {
@@ -8,13 +9,24 @@ const BookingTable = () => {
     const [driverBookings, setDriverBookings] = useState([]);
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
+
+    const Role = getToken()
     useEffect(() => {
-        dispatch(getMyBooking()).unwrap().then((res) => {
-            if (res) {
-                setCabBookings(res?.carBookings || [])
-                setDriverBookings(res?.driverBookings || [])
-            }
-        })
+        if (Role?.role == "USER") {
+            dispatch(getMyBooking()).unwrap().then((res) => {
+                if (res) {
+                    setCabBookings(res?.carBookings || [])
+                    setDriverBookings(res?.driverBookings || [])
+                }
+            })
+        } else {
+            dispatch(getPendingCars()).unwrap().then((res) => {
+                setCabBookings(res || [])
+            })
+            dispatch(getPendingDriver()).unwrap().then((res) => {
+                setDriverBookings(res || [])
+            })
+        }
     }, [loading])
 
     const handleCancelCab = (id, action) => {
@@ -128,12 +140,12 @@ const BookingTable = () => {
                             <td>{b.pickupAddress}</td>
                             <td>{b.dropAddress}</td>
                             <td style={{ display: "flex", gap: "2px" }}>
-                                <button className="cancel-btn" onClick={() => handleCancelCab(b?.vehicle?.id, "approve")}>
+                                {Role?.role !== "USER" ? <button className="cancel-btn" onClick={() => handleCancelCab(b?.vehicle?.id, "approve")}>
                                     Approve
-                                </button>
-                                <button className="cancel-btn" onClick={() => handleCancelCab(b?.vehicle?.id, "cancel")}>
-                                    Cancel
-                                </button>
+                                </button> :
+                                    <button className="cancel-btn" onClick={() => handleCancelCab(b?.vehicle?.id, "cancel")}>
+                                        Cancel
+                                    </button>}
                             </td>
                         </tr>
                     ))}
@@ -164,13 +176,14 @@ const BookingTable = () => {
                             <td>{b.endTime}</td>
                             <td>{b.pickupAddress}</td>
                             <td>{b.dropAddress}</td>
-                            <td style={{ display: "flex ", gap: "2px" }}>
-                                <button className="cancel-btn" onClick={() => handleCancelDriver(b?.driver?.id, "approve")}>
-                                    Approve
-                                </button>
-                                <button className="cancel-btn" onClick={() => handleCancelDriver(b?.driver?.id, "cancel")}>
-                                    Cancel
-                                </button>
+                            <td >
+                                {Role?.role !== "USER" ?
+                                    <button className="cancel-btn" onClick={() => handleCancelDriver(b?.driver?.id, "approve")}>
+                                        Approve
+                                    </button> :
+                                    <button className="cancel-btn" onClick={() => handleCancelDriver(b?.driver?.id, "cancel")}>
+                                        Cancel
+                                    </button>}
                             </td>
                         </tr>
                     ))}

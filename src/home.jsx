@@ -14,6 +14,10 @@ import AdminPage from './components/AdminPage';
 
 
 function Home() {
+
+  const  data =    getToken()
+
+  console.log(data,'data')
   return (
     <div>
       <Navbar />
@@ -24,7 +28,8 @@ function Home() {
       <Blog />
       <FAQ />
       <Contact />
-      <AdminPage />
+     { data?.role == "USER" ? null : <AdminPage /> }
+     
       <div style={{ background: "#fff", padding: "30px 15px", marginTop: "80px", borderRadius: "12px", boxShadow: "0 2px 12px rgba(0,0,0,0.07)" }} id="myBooking">
         <h2 style={{ fontWeight: "bold", marginBottom: "30px", textAlign: "center" }}>My Booking</h2>
         <BookingTable />

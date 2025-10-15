@@ -164,3 +164,29 @@ export const deleteAdminCars = createAsyncThunk( "user/adminVehcales",async (dat
     }
   }
 );
+
+
+export const   getPendingCars = createAsyncThunk(
+  "user/ admin cars",
+  async (type,{ rejectWithValue }) => {
+    try {
+      const res = await api.get(apiEnpoint.pendingCarBooking);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Registration failed");
+    }
+  }
+)
+
+
+export const   getPendingDriver = createAsyncThunk(
+  "user/admin driver ",
+  async (type,{ rejectWithValue }) => {
+    try {
+      const res = await api.get(apiEnpoint.pendingDriverBookings);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || "Registration failed");
+    }
+  }
+)

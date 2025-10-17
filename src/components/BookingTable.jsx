@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { approveCar, approveDriver, getMyBooking } from "../redux/features/users/userThunk";
+import { approveCar, approveDriver, getMyBooking, getPendingCars, getPendingDriver } from "../redux/features/users/userThunk";
 import { getToken } from "../utils/auth";
 
 

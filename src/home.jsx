@@ -11,13 +11,14 @@ import Contact from './components/contact';
 import Footer from './components/footer';
 import BookingTable from './components/BookingTable';
 import AdminPage from './components/AdminPage';
+import { getToken } from "./utils/auth";
 
 
 function Home() {
 
-  const  data =    getToken()
+  const data = getToken()
 
-  console.log(data,'data')
+  console.log(data, 'data')
   return (
     <div>
       <Navbar />
@@ -28,8 +29,8 @@ function Home() {
       <Blog />
       <FAQ />
       <Contact />
-     { data?.role == "USER" ? null : <AdminPage /> }
-     
+      {data?.role == "USER" ? null : <AdminPage />}
+
       <div style={{ background: "#fff", padding: "30px 15px", marginTop: "80px", borderRadius: "12px", boxShadow: "0 2px 12px rgba(0,0,0,0.07)" }} id="myBooking">
         <h2 style={{ fontWeight: "bold", marginBottom: "30px", textAlign: "center" }}>My Booking</h2>
         <BookingTable />

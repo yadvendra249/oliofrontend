@@ -1,14 +1,17 @@
-import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import React, { useState, useCallback } from "react";
 import { bookingCab, bookingDriver } from "../redux/features/users/userThunk";
 
 import dayjs from "dayjs";
+import MapboxAutocomplete from "./GoogleMapComponent";
+
 const Booking = () => {
   // Tab states
   const [mainTab, setMainTab] = useState("immediate");
   const [subTabImmediate, setSubTabImmediate] = useState("cab");
   const [subTabSchedule, setSubTabSchedule] = useState("cab");
   const dispatch = useDispatch();
+  const vehicleTypes = ["SEDAN", "SUV", "HATCHBACK"];
 
   const initialFormState = {
     // Immediate Cab
@@ -58,6 +61,21 @@ const Booking = () => {
   // Form states
   const [formData, setFormData] = useState(initialFormState);
   const [showTerminalField, setShowTerminalField] = useState(false);
+
+  const [pickup, setPickup] = useState(null);
+  const [drop, setDrop] = useState(null);
+
+  // Memoize callbacks so they don't recreate on every render
+  const handlePickupSelect = useCallback((place) => {
+    console.log("Pickup selected:", place);
+    setPickup(place);
+  }, []);
+
+  const handleDropSelect = useCallback((place) => {
+    console.log("Drop selected:", place);
+    setDrop(place);
+  }, []);
+
 
   // Handle input changes
   const handleInputChange = (e) => {
@@ -113,7 +131,6 @@ const Booking = () => {
   };
 
   console.log("Form Data", formData)
-
 
   return (
     <>
@@ -302,28 +319,28 @@ const Booking = () => {
                           <div className="form-group">
                             <label>Vehicle Type</label>
                             <select name="vehicleType" className="form-control" value={formData.vehicleType} onChange={handleInputChange} required>
-                                <option value="">Select</option>
-                                {vehicleTypes.map((type) => (
-                                    <option key={type} value={type}>{type}</option>
-                                ))}
+                              <option value="">Select</option>
+                              {vehicleTypes.map((type) => (
+                                <option key={type} value={type}>{type}</option>
+                              ))}
                             </select>
-                        </div>
+                          </div>
                           <div className="form-group">
+
                             <label htmlFor="pickupLocation">Pickup Location</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="pickupLocation"
-                              name="pickupAddress"
-                              placeholder="Pickup Location"
-                              value={formData.pickupAddress}
-                              onChange={handleInputChange}
-                              required
+                            <MapboxAutocomplete
+                              label="Enter pickup location..."
+                              onSelect={handlePickupSelect}
                             />
                           </div>
                           <div className="form-group">
                             <label htmlFor="dropAddress">Drop Location</label>
-                            <input
+                            <MapboxAutocomplete
+                              label="Enter drop location..."
+                              onSelect={handleDropSelect}
+                            />
+
+                            {/* <input
                               type="text"
                               className="form-control"
                               id="dropAddress"
@@ -332,7 +349,8 @@ const Booking = () => {
                               value={formData.dropAddress}
                               onChange={handleInputChange}
                               required
-                            />
+                            /> */}
+
                           </div>
                           {showTerminalField && (
                             <div className="form-group">
@@ -468,8 +486,13 @@ const Booking = () => {
                             />
                           </div>
                           <div className="form-group">
-                            <label htmlFor="driverPickupLocation">Pickup Location</label>
-                            <input
+
+                            <label htmlFor="pickupLocation">Pickup Location</label>
+                            <MapboxAutocomplete
+                              label="Enter pickup location..."
+                              onSelect={handlePickupSelect}
+                            />
+                            {/* <input
                               type="text"
                               className="form-control"
                               id="driverPickupLocation"
@@ -478,19 +501,13 @@ const Booking = () => {
                               value={formData.pickupAddress}
                               onChange={handleInputChange}
                               required
-                            />
+                            /> */}
                           </div>
                           <div className="form-group">
-                            <label htmlFor="driverdropAddress">Drop Location</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="driverdropAddress"
-                              name="dropAddress"
-                              placeholder="Drop Location"
-                              value={formData.dropAddress}
-                              onChange={handleInputChange}
-                              required
+                            <label htmlFor="dropAddress">Drop Location</label>
+                            <MapboxAutocomplete
+                              label="Enter drop location..."
+                              onSelect={handleDropSelect}
                             />
                           </div>
                           <div className="form-group">
@@ -614,39 +631,28 @@ const Booking = () => {
                               required
                             />
                           </div>
-                        <div className="form-group">
+                          <div className="form-group">
                             <label>Vehicle Type</label>
                             <select name="vehicleType" className="form-control" value={formData.vehicleType} onChange={handleInputChange} required>
-                                <option value="">Select</option>
-                                {vehicleTypes.map((type) => (
-                                    <option key={type} value={type}>{type}</option>
-                                ))}
+                              <option value="">Select</option>
+                              {vehicleTypes.map((type) => (
+                                <option key={type} value={type}>{type}</option>
+                              ))}
                             </select>
-                        </div>
+                          </div>
                           <div className="form-group">
-                            <label htmlFor="schedulePickupLocation">Pickup Location</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="schedulePickupLocation"
-                              name="pickupAddress"
-                              placeholder="Pickup Location"
-                              value={formData.pickupAddress}
-                              onChange={handleInputChange}
-                              required
+
+                            <label htmlFor="pickupLocation">Pickup Location</label>
+                            <MapboxAutocomplete
+                              label="Enter pickup location..."
+                              onSelect={handlePickupSelect}
                             />
                           </div>
                           <div className="form-group">
-                            <label htmlFor="scheduledropAddress">Drop Location</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="scheduledropAddress"
-                              name="dropAddress"
-                              placeholder="Drop Location"
-                              value={formData.dropAddress}
-                              onChange={handleInputChange}
-                              required
+                            <label htmlFor="dropAddress">Drop Location</label>
+                            <MapboxAutocomplete
+                              label="Enter drop location..."
+                              onSelect={handleDropSelect}
                             />
                           </div>
                           {showTerminalField && (
@@ -797,16 +803,11 @@ const Booking = () => {
                             />
                           </div>
                           <div className="form-group">
-                            <label htmlFor="scheduleDriverPickupLocation">Pickup Location</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="scheduleDriverPickupLocation"
-                              name="pickupAddress"
-                              placeholder="Pickup Location"
-                              value={formData.pickupAddress}
-                              onChange={handleInputChange}
-                              required
+
+                            <label htmlFor="pickupLocation">Pickup Location</label>
+                            <MapboxAutocomplete
+                              label="Enter pickup location..."
+                              onSelect={handlePickupSelect}
                             />
                           </div>
                           <div className="form-group">

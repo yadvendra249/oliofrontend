@@ -9,6 +9,7 @@ import ProtectedLayout from './utils/ProtectedLayout';
 
 
 
+
 function App() {
   return (
     <Routes>
@@ -16,8 +17,8 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route element={<ProtectedLayout />}>
-         <Route path="/blog/:id" element={<BlogDetail />} />
-      <Route path="/home" element={< Home />} />
+        <Route path="/blog/:id" element={<BlogDetail />} />
+        <Route path="/home" element={< Home />} />
       </Route>
     </Routes>
   );

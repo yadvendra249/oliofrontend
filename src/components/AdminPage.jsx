@@ -20,7 +20,7 @@ const initialCar = {
     pickupTime: "",
 };
 
-const vehicleTypes = ["SEDAN", "SUV", "HATCHBACK"];
+// const vehicleTypes = ["SEDAN", "SUV", "HATCHBACK"];
 
 
 const AdminPage = () => {
@@ -29,8 +29,19 @@ const AdminPage = () => {
     const [drivers, setDrivers] = useState([]);
     const [cars, setCars] = useState([]);
 
+
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
+
+      const [vehicleTypes,setvehicleTypes]=useState([])
+    
+      useEffect(()=>{
+        dispatch(getOptionsVichles()).unwrap().then((res)=>{
+          if(res){
+            setvehicleTypes(res || [])
+          }
+        })
+      },[])
 
     useEffect(() => {
         dispatch(getAdminDrivers()).unwrap().then((res) => {

@@ -21,7 +21,6 @@ const initialCar = {
     pickupTime: "",
 };
 
-// const vehicleTypes = ["SEDAN", "SUV", "HATCHBACK"];
 
 
 const AdminPage = () => {
@@ -36,23 +35,27 @@ const AdminPage = () => {
 
     const [vehicleTypes, setvehicleTypes] = useState([])
 
-       useEffect(() => {
-        (async () => {
-          try {
+    const getCarFunction = async (type = "") => {
+        try {
             const data = await getOptionsVichles();
-                 setvehicleTypes(data ? data?.map((ele) => ele.name) : [])
-          } catch (err) {
+            if (type === "option") {
+                setvehicleTypes(data ? data?.map((ele) => ele.name) : [])
+            } else {
+                setCars(data || [])
+            }
+
+        } catch (err) {
             console.error(err);
-          }
-        })();
-      }, []);
+        }
+    }
+
+    useEffect(() => {
+        getCarFunction("option")
+    }, []);
 
     useEffect(() => {
         dispatch(getAdminDrivers()).unwrap().then((res) => {
             setDrivers(res || [])
-        })
-        dispatch(getAdminCars()).unwrap().then((res) => {
-            setCars(res || [])
         })
     }, [])
 
@@ -67,9 +70,7 @@ const AdminPage = () => {
             if (res) {
                 setCarForm(initialCar);
                 setLoading(pre => !pre)
-                dispatch(getAdminCars()).unwrap().then((res) => {
-                    setCars(res || [])
-                })
+                getCarFunction()
             }
         })
     };
@@ -102,6 +103,16 @@ const AdminPage = () => {
             }
         })
     };
+
+      const handlePickupSelect = useCallback((place) => {
+        setCarForm((pre) => ({ ...pre, pickupAddress: place?.name }))
+      }, []);
+
+        const handleDropSelect = useCallback((place) => {
+          setCarForm((pre) => ({ ...pre, dropAddress: place?.name }))
+        }, []);
+      
+
 
     return (
         <div className="container py-4">
@@ -170,18 +181,16 @@ const AdminPage = () => {
                             }} required />
                         </div>
                         <div className="form-group">
-                            <label>Pickup Address</label>
-                            <input type="text" name="pickupAddress" className="form-control" value={carForm.pickupAddress} onChange={(e) => {
-                                const { name, value } = e.target;
-                                setCarForm((prev) => ({ ...prev, [name]: value }));
-                            }} required />
+                             <MapboxAutocomplete
+                              label="Enter pickup location..."
+                              onSelect={handlePickupSelect}
+                            />
                         </div>
                         <div className="form-group">
-                            <label>Drop Address</label>
-                            <input type="text" name="dropAddress" className="form-control" value={carForm.dropAddress} onChange={(e) => {
-                                const { name, value } = e.target;
-                                setCarForm((prev) => ({ ...prev, [name]: value }));
-                            }} required />
+                           <MapboxAutocomplete
+                              label="Enter Drop location..."
+                              onSelect={handleDropSelect}
+                            />
                         </div>
                         <div className="form-group">
                             <label>Vehicle Type</label>

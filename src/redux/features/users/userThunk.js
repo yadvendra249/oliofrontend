@@ -191,16 +191,13 @@ export const getPendingDriver = createAsyncThunk(
   }
 )
 
-//adminVehicles
 
-export const getOptionsVichles = createAsyncThunk(
-  "get/options vichels ",
-  async (type, { rejectWithValue }) => {
-    try {
-      const res = await api.get(apiEnpoint.Vehicles);
-      return res.data;
-    } catch (err) {
-      return rejectWithValue(err.response?.data || "Registration failed");
-    }
+export const getOptionsVichles = async () => {
+  try {
+    const response = await api.get(apiEnpoint.Vehicles);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw error;
   }
-)
+};

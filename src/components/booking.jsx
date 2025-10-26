@@ -13,15 +13,16 @@ const Booking = () => {
   const [vehicleTypes, setvehicleTypes] = useState([])
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getOptionsVichles()).unwrap().then((res) => {
-      if (res) {
-
-        setvehicleTypes(res ? res?.map((ele) => ele.name) : [])
-
+   useEffect(() => {
+    (async () => {
+      try {
+        const data = await getOptionsVichles();
+             setvehicleTypes(data ? data?.map((ele) => ele.name) : [])
+      } catch (err) {
+        console.error(err);
       }
-    })
-  }, [])
+    })();
+  }, []);
 
   const initialFormState = {
     // Immediate Cab

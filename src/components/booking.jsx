@@ -16,7 +16,7 @@ const Booking = () => {
   useEffect(()=>{
     dispatch(getOptionsVichles()).unwrap().then((res)=>{
       if(res){
-        setvehicleTypes(res || [])
+        setvehicleTypes( res ? res?.map((ele)=>ele.name):[])
       }
     })
   },[])

@@ -94,9 +94,9 @@ export const approveDriver = createAsyncThunk(
 );
 
 
-export const   getAdminDrivers = createAsyncThunk(
+export const getAdminDrivers = createAsyncThunk(
   "user/AdminDrivers",
-  async (type,{ rejectWithValue }) => {
+  async (type, { rejectWithValue }) => {
     try {
       const res = await api.get(apiEnpoint.adminDrivers);
       return res.data;
@@ -106,9 +106,9 @@ export const   getAdminDrivers = createAsyncThunk(
   }
 );
 
-export const   getAdminCars = createAsyncThunk(
+export const getAdminCars = createAsyncThunk(
   "user/adminVehcales",
-  async (type,{ rejectWithValue }) => {
+  async (type, { rejectWithValue }) => {
     try {
       const res = await api.get(apiEnpoint.adminVehicles);
       return res.data;
@@ -119,21 +119,21 @@ export const   getAdminCars = createAsyncThunk(
 );
 
 
-export const postAdminCars = createAsyncThunk( "user/adminVehcales",async (data,{ rejectWithValue }) => {
-    try {
-      const res = await api.post(apiEnpoint.adminVehicles,data);
-      return res.data;
-    } catch (err) {
-      return rejectWithValue(err.response?.data || "Registration failed");
-    }
+export const postAdminCars = createAsyncThunk("user/adminVehcales", async (data, { rejectWithValue }) => {
+  try {
+    const res = await api.post(apiEnpoint.adminVehicles, data);
+    return res.data;
+  } catch (err) {
+    return rejectWithValue(err.response?.data || "Registration failed");
   }
+}
 );
 
-export const   postAdminDrivers = createAsyncThunk(
+export const postAdminDrivers = createAsyncThunk(
   "user/AdminDrivers",
-  async (data,{ rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
-      const res = await api.post(apiEnpoint.adminDrivers,data);
+      const res = await api.post(apiEnpoint.adminDrivers, data);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response?.data || "Registration failed");
@@ -142,11 +142,11 @@ export const   postAdminDrivers = createAsyncThunk(
 );
 
 
-export const   deleteAdminDrivers = createAsyncThunk(
+export const deleteAdminDrivers = createAsyncThunk(
   "user/AdminDrivers",
-  async (data,{ rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
-      const res = await api.delete(apiEnpoint.adminDrivers+ "/" + data);
+      const res = await api.delete(apiEnpoint.adminDrivers + "/" + data);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response?.data || "Registration failed");
@@ -155,20 +155,20 @@ export const   deleteAdminDrivers = createAsyncThunk(
 );
 
 
-export const deleteAdminCars = createAsyncThunk( "user/adminVehcales",async (data,{ rejectWithValue }) => {
-    try {
-      const res = await api.delete(apiEnpoint.adminVehicles +"/"+data);
-      return res.data;
-    } catch (err) {
-      return rejectWithValue(err.response?.data || "Registration failed");
-    }
+export const deleteAdminCars = createAsyncThunk("user/adminVehcales", async (data, { rejectWithValue }) => {
+  try {
+    const res = await api.delete(apiEnpoint.adminVehicles + "/" + data);
+    return res.data;
+  } catch (err) {
+    return rejectWithValue(err.response?.data || "Registration failed");
   }
+}
 );
 
 
-export const   getPendingCars = createAsyncThunk(
+export const getPendingCars = createAsyncThunk(
   "user/ admin cars",
-  async (type,{ rejectWithValue }) => {
+  async (type, { rejectWithValue }) => {
     try {
       const res = await api.get(apiEnpoint.pendingCarBooking);
       return res.data;
@@ -179,9 +179,9 @@ export const   getPendingCars = createAsyncThunk(
 )
 
 
-export const   getPendingDriver = createAsyncThunk(
+export const getPendingDriver = createAsyncThunk(
   "user/admin driver ",
-  async (type,{ rejectWithValue }) => {
+  async (type, { rejectWithValue }) => {
     try {
       const res = await api.get(apiEnpoint.pendingDriverBookings);
       return res.data;
@@ -192,15 +192,12 @@ export const   getPendingDriver = createAsyncThunk(
 )
 
 
-
-export const   getOptionsVichles = createAsyncThunk(
-  "get/options vichels ",
-  async (type,{ rejectWithValue }) => {
-    try {
-      const res = await api.get(apiEnpoint.adminVehicles);
-      return res.data;
-    } catch (err) {
-      return rejectWithValue(err.response?.data || "Registration failed");
-    }
+export const getOptionsVichles = async () => {
+  try {
+    const response = await api.get(apiEnpoint.Vehicles);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw error;
   }
-)
+};

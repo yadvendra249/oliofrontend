@@ -10,16 +10,19 @@ const Booking = () => {
   const [mainTab, setMainTab] = useState("immediate");
   const [subTabImmediate, setSubTabImmediate] = useState("cab");
   const [subTabSchedule, setSubTabSchedule] = useState("cab");
-  const [vehicleTypes,setvehicleTypes]=useState([])
+  const [vehicleTypes, setvehicleTypes] = useState([])
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    dispatch(getOptionsVichles()).unwrap().then((res)=>{
-      if(res){
-        setvehicleTypes( res ? res?.map((ele)=>ele.name):[])
+   useEffect(() => {
+    (async () => {
+      try {
+        const data = await getOptionsVichles();
+             setvehicleTypes(data ? data?.map((ele) => ele.name) : [])
+      } catch (err) {
+        console.error(err);
       }
-    })
-  },[])
+    })();
+  }, []);
 
   const initialFormState = {
     // Immediate Cab
@@ -76,12 +79,12 @@ const Booking = () => {
   // Memoize callbacks so they don't recreate on every render
   const handlePickupSelect = useCallback((place) => {
     setPickup(place);
-    setFormData((pre)=>({...pre,pickupAddress:place}))
+    setFormData((pre) => ({ ...pre, pickupAddress: place?.name }))
   }, []);
 
   const handleDropSelect = useCallback((place) => {
     setDrop(place);
-        setFormData((pre)=>({...pre,dropAddress:place}))
+    setFormData((pre) => ({ ...pre, dropAddress: place?.name }))
   }, []);
 
 

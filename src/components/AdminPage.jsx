@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { deleteAdminCars, deleteAdminDrivers, getAdminCars, getAdminDrivers, postAdminCars, postAdminDrivers } from "../redux/features/users/userThunk";
+import { deleteAdminCars, deleteAdminDrivers, getAdminCars, getAdminDrivers, getOptionsVichles, postAdminCars, postAdminDrivers } from "../redux/features/users/userThunk";
 import { useDispatch } from "react-redux";
+
 
 const initialDriver = {
     firstName: "",
@@ -33,15 +34,18 @@ const AdminPage = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
 
-      const [vehicleTypes,setvehicleTypes]=useState([])
-    
-      useEffect(()=>{
-        dispatch(getOptionsVichles()).unwrap().then((res)=>{
-          if(res){
-            setvehicleTypes(res || [])
+    const [vehicleTypes, setvehicleTypes] = useState([])
+
+       useEffect(() => {
+        (async () => {
+          try {
+            const data = await getOptionsVichles();
+                 setvehicleTypes(data ? data?.map((ele) => ele.name) : [])
+          } catch (err) {
+            console.error(err);
           }
-        })
-      },[])
+        })();
+      }, []);
 
     useEffect(() => {
         dispatch(getAdminDrivers()).unwrap().then((res) => {

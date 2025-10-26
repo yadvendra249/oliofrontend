@@ -67,13 +67,13 @@ const Booking = () => {
 
   // Memoize callbacks so they don't recreate on every render
   const handlePickupSelect = useCallback((place) => {
-    console.log("Pickup selected:", place);
     setPickup(place);
+    setFormData((pre)=>({...pre,pickupAddress:place}))
   }, []);
 
   const handleDropSelect = useCallback((place) => {
-    console.log("Drop selected:", place);
     setDrop(place);
+        setFormData((pre)=>({...pre,dropAddress:place}))
   }, []);
 
 
@@ -130,7 +130,7 @@ const Booking = () => {
     }
   };
 
-  console.log("Form Data", formData)
+
 
   return (
     <>

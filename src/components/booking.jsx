@@ -10,16 +10,18 @@ const Booking = () => {
   const [mainTab, setMainTab] = useState("immediate");
   const [subTabImmediate, setSubTabImmediate] = useState("cab");
   const [subTabSchedule, setSubTabSchedule] = useState("cab");
-  const [vehicleTypes,setvehicleTypes]=useState([])
+  const [vehicleTypes, setvehicleTypes] = useState([])
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    dispatch(getOptionsVichles()).unwrap().then((res)=>{
-      if(res){
-        setvehicleTypes(res || [])
+  useEffect(() => {
+    dispatch(getOptionsVichles()).unwrap().then((res) => {
+      if (res) {
+
+        setvehicleTypes(res ? res?.map((ele) => ele.name) : [])
+
       }
     })
-  },[])
+  }, [])
 
   const initialFormState = {
     // Immediate Cab

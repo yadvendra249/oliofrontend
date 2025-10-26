@@ -1,17 +1,25 @@
 import { useDispatch } from "react-redux";
 import React, { useState, useCallback } from "react";
-import { bookingCab, bookingDriver } from "../redux/features/users/userThunk";
+import { bookingCab, bookingDriver, getOptionsVichles } from "../redux/features/users/userThunk";
 
 import dayjs from "dayjs";
 import MapboxAutocomplete from "./GoogleMapComponent";
+import { useEffect } from "react";
 
 const Booking = () => {
-  // Tab states
   const [mainTab, setMainTab] = useState("immediate");
   const [subTabImmediate, setSubTabImmediate] = useState("cab");
   const [subTabSchedule, setSubTabSchedule] = useState("cab");
+  const [vehicleTypes,setvehicleTypes]=useState([])
   const dispatch = useDispatch();
-  const vehicleTypes = ["SEDAN", "SUV", "HATCHBACK"];
+
+  useEffect(()=>{
+    dispatch(getOptionsVichles()).unwrap().then((res)=>{
+      if(res){
+        setvehicleTypes(res || [])
+      }
+    })
+  },[])
 
   const initialFormState = {
     // Immediate Cab

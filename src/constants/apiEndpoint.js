@@ -21,10 +21,10 @@ const apiEndpoint = {
 
 
   adminDrivers: "/api/v1/admin/drivers",
+  Vehicles: "/api/v1/vehicles",
   adminVehicles: "/api/v1/admin/vehicles",
   pendingDriverBookings: "/api/v1/admin/bookings/drivers/status/pending",
-  pendingCarBooking :"/api/v1/admin/bookings/cars/status/pending",
-  Vehicles: "/api/v1/vehicles",
+  pendingCarBooking: "/api/v1/admin/bookings/cars/status/pending"
 };
 
 export default apiEndpoint;

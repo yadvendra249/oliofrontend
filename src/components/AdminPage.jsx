@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { deleteAdminCars, deleteAdminDrivers, getAdminCars, getAdminDrivers, getOptionsVichles, postAdminCars, postAdminDrivers } from "../redux/features/users/userThunk";
 import { useDispatch } from "react-redux";
+import MapboxAutocomplete from "./GoogleMapComponent";
 
 
 const initialDriver = {
@@ -104,14 +105,14 @@ const AdminPage = () => {
         })
     };
 
-      const handlePickupSelect = useCallback((place) => {
+    const handlePickupSelect = useCallback((place) => {
         setCarForm((pre) => ({ ...pre, pickupAddress: place?.name }))
-      }, []);
+    }, []);
 
-        const handleDropSelect = useCallback((place) => {
-          setCarForm((pre) => ({ ...pre, dropAddress: place?.name }))
-        }, []);
-      
+    const handleDropSelect = useCallback((place) => {
+        setCarForm((pre) => ({ ...pre, dropAddress: place?.name }))
+    }, []);
+
 
 
     return (
@@ -181,15 +182,15 @@ const AdminPage = () => {
                             }} required />
                         </div>
                         <div className="form-group">
-                             <MapboxAutocomplete
-                              label="Enter pickup location..."
-                              onSelect={handlePickupSelect}
+                            <MapboxAutocomplete
+                                label="Enter pickup location..."
+                                onSelect={handlePickupSelect}
                             />
                         </div>
                         <div className="form-group">
-                           <MapboxAutocomplete
-                              label="Enter Drop location..."
-                              onSelect={handleDropSelect}
+                            <MapboxAutocomplete
+                                label="Enter Drop location..."
+                                onSelect={handleDropSelect}
                             />
                         </div>
                         <div className="form-group">

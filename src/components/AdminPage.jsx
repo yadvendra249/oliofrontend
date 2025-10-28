@@ -13,16 +13,13 @@ const initialDriver = {
     address: "",
 };
 
+
 const initialCar = {
-    passengerName: "",
-    passengerMobileNumber: "",
-    pickupAddress: "",
-    dropAddress: "",
-    vehicleType: "",
-    pickupTime: "",
-};
-
-
+    "name": "",
+    "capacity": 0,
+    "vehicleType": "SEDAN",
+    "numberPlate": ""
+}
 
 const AdminPage = () => {
     const [driverForm, setDriverForm] = useState(initialDriver);
@@ -36,15 +33,11 @@ const AdminPage = () => {
 
     const [vehicleTypes, setvehicleTypes] = useState([])
 
-    const getCarFunction = async (type = "") => {
+    const getCarFunction = async () => {
         try {
             const data = await getOptionsVichles();
-            if (type === "option") {
-                setvehicleTypes(data ? data?.map((ele) => ele.name) : [])
-            } else {
-                setCars(data || [])
-            }
-
+            setvehicleTypes(data ? data?.map((ele) => ele.vehicleType) : [])
+            setCars(data || [])
         } catch (err) {
             console.error(err);
         }
@@ -66,18 +59,21 @@ const AdminPage = () => {
         setDriverForm((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleCarSubmit = () => {
+    const handleCarSubmit = (e) => {
+        e.preventDefault();
         dispatch(postAdminCars(carForm)).unwrap().then((res) => {
             if (res) {
                 setCarForm(initialCar);
                 setLoading(pre => !pre)
                 getCarFunction()
             }
+            console.log("res", res);
         })
     };
 
 
-    const handleDriverSubmit = async () => {
+    const handleDriverSubmit = async (e) => {
+        e.preventDefault()
         dispatch(postAdminDrivers(driverForm)).unwrap().then((res) => {
             if (res) {
                 setDriverForm(initialDriver);
@@ -105,13 +101,6 @@ const AdminPage = () => {
         })
     };
 
-    const handlePickupSelect = useCallback((place) => {
-        setCarForm((pre) => ({ ...pre, pickupAddress: place?.name }))
-    }, []);
-
-    const handleDropSelect = useCallback((place) => {
-        setCarForm((pre) => ({ ...pre, dropAddress: place?.name }))
-    }, []);
 
 
 
@@ -157,7 +146,7 @@ const AdminPage = () => {
                             <label>Address</label>
                             <input type="text" name="address" className="form-control" value={driverForm.address} onChange={handleDriverChange} required />
                         </div>
-                        <button onClick={() => handleDriverSubmit()} className="btn btn-primary w-100" disabled={loading}>
+                        <button onClick={(e) => handleDriverSubmit(e)} className="btn btn-primary w-100">
                             Add Driver
                         </button>
                     </form>
@@ -168,47 +157,36 @@ const AdminPage = () => {
                     <h3 style={{ textAlign: "center" }}>Car Booking Form</h3>
                     <form>
                         <div className="form-group">
-                            <label>Passenger Name</label>
-                            <input type="text" name="passengerName" className="form-control" value={carForm.passengerName} onChange={(e) => {
+                            <label> Name</label>
+                            <input type="text" name="name" className="form-control" value={carForm.name} onChange={(e) => {
                                 const { name, value } = e.target;
                                 setCarForm((prev) => ({ ...prev, [name]: value }));
                             }} required />
                         </div>
                         <div className="form-group">
-                            <label>Passenger Mobile Number</label>
-                            <input type="text" name="passengerMobileNumber" className="form-control" value={carForm.passengerMobileNumber} onChange={(e) => {
+                            <label>Capacity</label>
+                            <input type="text" name="capacity" className="form-control" value={carForm.capacity} onChange={(e) => {
                                 const { name, value } = e.target;
                                 setCarForm((prev) => ({ ...prev, [name]: value }));
                             }} required />
-                        </div>
-                        <div className="form-group">
-                            <MapboxAutocomplete
-                                label="Enter pickup location..."
-                                onSelect={handlePickupSelect}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <MapboxAutocomplete
-                                label="Enter Drop location..."
-                                onSelect={handleDropSelect}
-                            />
                         </div>
                         <div className="form-group">
                             <label>Vehicle Type</label>
-                             <input type="text" name="vehicleType" className="form-control" value={carForm.vehicleType} onChange={(e) => {
+                            <input type="text" name="vehicleType" className="form-control" value={carForm.vehicleType} onChange={(e) => {
                                 const { name, value } = e.target;
                                 setCarForm((prev) => ({ ...prev, [name]: value }));
                             }} required />
                         </div>
                         <div className="form-group">
-                            <label>Pickup Time</label>
-                            <input type="datetime-local" name="pickupTime" className="form-control" value={carForm.pickupTime} onChange={(e) => {
+                            <label>Number Plate</label>
+                            <input type="text" name="numberPlate" className="form-control" value={carForm.numberPlate} onChange={(e) => {
                                 const { name, value } = e.target;
                                 setCarForm((prev) => ({ ...prev, [name]: value }));
                             }} required />
                         </div>
+
                         <button
-                            onClick={() => handleCarSubmit()}
+                            onClick={(e) => handleCarSubmit(e)}
                             className="btn btn-primary w-100"
                             disabled={loading}>
                             Add Car Booking
@@ -225,24 +203,20 @@ const AdminPage = () => {
                     <table className="admin-table">
                         <thead>
                             <tr>
-                                <th>Passenger Name</th>
-                                <th>Mobile No</th>
-                                <th>Pickup Address</th>
-                                <th>Drop Address</th>
+                                <th> Name</th>
+                                <th> Capacity</th>
                                 <th>Vehicle Type</th>
-                                <th>Pickup Time</th>
+                                <th>Number Plate </th>
                                 <th>Cancel</th>
                             </tr>
                         </thead>
                         <tbody>
                             {cars.map((c, idx) => (
                                 <tr key={c.id || c._id || idx}>
-                                    <td>{c.passengerName}</td>
-                                    <td>{c.passengerMobileNumber}</td>
-                                    <td>{c.pickupAddress}</td>
-                                    <td>{c.dropAddress}</td>
+                                    <td>{c.name}</td>
+                                    <td>{c.capacity}</td>
                                     <td>{c.vehicleType}</td>
-                                    <td>{c.pickupTime}</td>
+                                    <td>{c.numberPlate}</td>
                                     <td>
                                         <button className="cancel-btn" onClick={() => handleCancelCar(c?.id)} disabled={loading}>
                                             Cancel

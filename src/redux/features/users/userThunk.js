@@ -6,7 +6,7 @@ import api from "../../../services/api";
 
 
 export const loginUser = createAsyncThunk(
-  "user/loginUser",
+  "user/loginUser yttt",
   async (credentials, { rejectWithValue }) => {
     try {
       const res = await api.post(apiEnpoint.login, credentials);
@@ -19,7 +19,7 @@ export const loginUser = createAsyncThunk(
 
 
 export const RegisterUser = createAsyncThunk(
-  "user/RegisterUser",
+  "user/RegisterUser uuyy",
   async (userData, { rejectWithValue }) => {
     try {
       const res = await api.post(apiEnpoint.register, userData);
@@ -31,7 +31,7 @@ export const RegisterUser = createAsyncThunk(
 );
 
 export const bookingDriver = createAsyncThunk(
-  "user/RegisterUser",
+  "user/RegisterUser ttiu",
   async (userData, { rejectWithValue }) => {
     try {
       const res = await api.post(apiEnpoint.driverBookings, userData);
@@ -44,7 +44,7 @@ export const bookingDriver = createAsyncThunk(
 
 
 export const bookingCab = createAsyncThunk(
-  "user/RegisterUser",
+  "user/RegisterUser yhyuu",
   async (userData, { rejectWithValue }) => {
     try {
       const res = await api.post(apiEnpoint.carBookings, userData);
@@ -57,7 +57,7 @@ export const bookingCab = createAsyncThunk(
 
 
 export const getMyBooking = createAsyncThunk(
-  "user/RegisterUser",
+  "user/RegisterUser tyyt",
   async (userData, { rejectWithValue }) => {
     try {
       const res = await api.get(apiEnpoint.myBookings, userData);
@@ -70,7 +70,7 @@ export const getMyBooking = createAsyncThunk(
 
 
 export const approveCar = createAsyncThunk(
-  "user/RegisterUser",
+  "user/RegisterUser trdf",
   async (userData, { rejectWithValue }) => {
     try {
       const res = await api.put(apiEnpoint.carBookings + "/" + userData?.id + "/" + userData?.action);
@@ -82,7 +82,7 @@ export const approveCar = createAsyncThunk(
 );
 
 export const approveDriver = createAsyncThunk(
-  "user/RegisterUser",
+  "user/RegisterUser hhhjj",
   async (userData, { rejectWithValue }) => {
     try {
       const res = await api.put(apiEnpoint.driverBookings + "/" + userData?.id + "/" + userData?.action);
@@ -95,7 +95,7 @@ export const approveDriver = createAsyncThunk(
 
 
 export const getAdminDrivers = createAsyncThunk(
-  "user/AdminDrivers",
+  "user/AdminDrivers yyy",
   async (type, { rejectWithValue }) => {
     try {
       const res = await api.get(apiEnpoint.adminDrivers);
@@ -107,7 +107,7 @@ export const getAdminDrivers = createAsyncThunk(
 );
 
 export const getAdminCars = createAsyncThunk(
-  "user/adminVehcales",
+  "user/adminVehcales uyhj",
   async (type, { rejectWithValue }) => {
     try {
       const res = await api.get(apiEnpoint.adminVehicles);
@@ -119,7 +119,7 @@ export const getAdminCars = createAsyncThunk(
 );
 
 
-export const postAdminCars = createAsyncThunk("user/adminVehcales", async (data, { rejectWithValue }) => {
+export const postAdminCars = createAsyncThunk("user/adminVehcales yyy", async (data, { rejectWithValue }) => {
   try {
     const res = await api.post(apiEnpoint.adminVehicles, data);
     return res.data;
@@ -130,7 +130,7 @@ export const postAdminCars = createAsyncThunk("user/adminVehcales", async (data,
 );
 
 export const postAdminDrivers = createAsyncThunk(
-  "user/AdminDrivers",
+  "user/AdminDrivers uyt",
   async (data, { rejectWithValue }) => {
     try {
       const res = await api.post(apiEnpoint.adminDrivers, data);
@@ -143,7 +143,7 @@ export const postAdminDrivers = createAsyncThunk(
 
 
 export const deleteAdminDrivers = createAsyncThunk(
-  "user/AdminDrivers",
+  "user/AdminDrivers kjh",
   async (data, { rejectWithValue }) => {
     try {
       const res = await api.delete(apiEnpoint.adminDrivers + "/" + data);
@@ -167,7 +167,7 @@ export const deleteAdminCars = createAsyncThunk("user/adminVehcales", async (dat
 
 
 export const getPendingCars = createAsyncThunk(
-  "user/ admin cars",
+  "user/ admin cars tfs",
   async (type, { rejectWithValue }) => {
     try {
       const res = await api.get(apiEnpoint.pendingCarBooking);
@@ -180,7 +180,7 @@ export const getPendingCars = createAsyncThunk(
 
 
 export const getPendingDriver = createAsyncThunk(
-  "user/admin driver ",
+  "user/admin driver hhh",
   async (type, { rejectWithValue }) => {
     try {
       const res = await api.get(apiEnpoint.pendingDriverBookings);

@@ -13,11 +13,11 @@ const Booking = () => {
   const [vehicleTypes, setvehicleTypes] = useState([])
   const dispatch = useDispatch();
 
-   useEffect(() => {
+  useEffect(() => {
     (async () => {
       try {
         const data = await getOptionsVichles();
-             setvehicleTypes(data ? data?.map((ele) => ele.name) : [])
+        setvehicleTypes(data ? data?.map((ele) => ele.vehicleType) : [])
       } catch (err) {
         console.error(err);
       }
